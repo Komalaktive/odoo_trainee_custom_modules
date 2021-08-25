@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="docu_type_tree_view" model="ir.ui.view">
+      <field name="name">docu.type.tree.view</field>
+      <field name="model">docu.type</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="Name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record  id="docu_type_form_view" model="ir.ui.view">
+      <field name="name">docu.type.form.view</field>
+      <field name="model">docu.type</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name" string="Name"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+<record id="action_docu_type" model="ir.actions.act_window">
+        <field name="name">Tag</field>
+        <field name="res_model">docu.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+  <menuitem id="docu_root" name="Document"/>    
+  <menuitem id="docu_nav1" parent="docu_root" name="Tag" action="action_docu_type"/>
+
+
+</odoo>

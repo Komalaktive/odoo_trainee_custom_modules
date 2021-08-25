@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="demo_form_field_add" model="ir.ui.view">
+        <field name="name">demo.form.field.add</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+             <xpath expr="//div[@name='standard_price_uom']" position="after">
+                <button class="btn-primary" string="Random String" name="genrate_random_string" type="object" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=',False)]}"/> 
+                    <div>           
+                        <field name="random_string" attrs="{'invisible': [('product_variant_count', '&gt;',1), ('is_product_variant', '=', False)]}"/>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

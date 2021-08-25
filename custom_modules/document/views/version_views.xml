@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="docu_version_tree_view" model="ir.ui.view">
+      <field name="name">docu.version.tree.view</field>
+      <field name="model">docu.version</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="version"/>
+          <field name="active"/>
+        </tree>
+      </field>
+    </record>
+
+    <record  id="docu_version_form_view" model="ir.ui.view">
+      <field name="name">docu.version.form.view</field>
+      <field name="model">docu.version</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="active" widget="boolean_toggle"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+<record id="action_docu_version" model="ir.actions.act_window">
+        <field name="name">Version</field>
+        <field name="res_model">docu.version</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+  <menuitem id="docu_root" name="Document"/>
+  <menuitem id="docu_nav2" parent="docu_root" name="Version" action="action_docu_version"/>
+</odoo>

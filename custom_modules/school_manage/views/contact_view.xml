@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="contact_order_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="active" widget="boolean_toggle"/>
+            </xpath>
+            <xpath expr="//page[5]" position="after">
+                <page string="Reviews">
+                    <group string="Sale Reviews">
+                        <field name="reviews"/>
+                    </group>
+                </page>
+            </xpath>
+        <field name="active"/>
+            
+        </field>
+    </record>
+
+      <record id="view_order_tree_inherit" model="ir.ui.view">
+        <field name="name">res.partner.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="active" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

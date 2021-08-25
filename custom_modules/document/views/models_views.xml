@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="docu_item_tree_view" model="ir.ui.view">
+        <field name="name">docu.item.view</field>
+        <field name="model">docu.item</field>
+        <field name="arch" type="xml">
+
+            <tree>
+                <field name="name"/>
+                <field name="video_url"/>
+                <field name="google_url"/>
+                <field name="active"/>
+                <field name="tag"/>
+                <field name="description_short"/>
+                <field name="rec_model"/>
+                <field name="task_name"/>
+            </tree>
+        </field>
+
+    </record>
+
+
+    <record id="docu_item_form_extend" model="ir.ui.view">
+        <field name="name">docu.item.form.extend</field>
+        <field name="model">docu.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <group>
+                        <group string="Task Management">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                        <field name="task_name"/>
+                        <field name="description_short"/>
+                        <field name="doc_type" placeholder="select atleast one"/>
+                        <field name="video_url" widget="url"/>
+                        <field name="google_url" widget="url"/>
+                        <field name="active" widget="boolean_toggle"/>
+
+                        </group>
+
+
+                        <group>
+                            <label for="lang"/>
+                            <div class="o_row">
+                            <field name="lang"/>
+                            <button type="action" name="53" class="btn-sm btn-link mb4 fa fa-globe" aria-label="More languages" groups="base.group_system" title="More languages"/>
+                            </div>
+                            <field name="tag" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="rec_model"/>
+                        
+                        </group>
+
+                    </group>
+
+                    <group>
+                        <field name="description_long"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="docu_item_view" model="ir.ui.view">
+        <field name="model">docu.item</field>
+        <field name="arch" type="xml">
+            <search string="Document">
+                <field name="name"/>
+                <field name="description_short"/>
+                <field name="description_long"/>
+                <field name="tag"/>
+                <field name="rec_model"/>
+                <field name="doc_type"/>
+
+                <filter string="Maths" name="Maths" domain="[('doc_type','=', 'Maths')]"/>
+                <filter string="Physics" name="Physics" domain="[('doc_type','=', 'Physics')]"/>
+                <filter string="Chemistry" name="Chemistry" domain="[('doc_type','=', 'Chemistry')]"/>
+                <filter string="Version" name="12" domain="[('rec_model','=', '12')]"/>
+                <group expand="1" string="Group By">
+                    <filter name="lang" string="Template Preview Language" context="{'group_by':'lang'}"/>
+                </group>
+                <group expand="1" string="Group By">
+                    <filter name="rec_model" string="Version" context="{'group_by':'rec_model'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+
+ <record id="action_docu_item" model="ir.actions.act_window">
+        <field name="name">Document Info</field>
+        <field name="res_model">docu.item</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_Maths':1}</field>
+    </record>
+
+    <menuitem id="docu_root" name="Document"/>
+    <menuitem id="docu_nav" parent="docu_root" name="Document" action="action_docu_item"/>
+
+</odoo>
