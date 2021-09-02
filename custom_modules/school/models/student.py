@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class Student(models.Model):
@@ -20,4 +20,39 @@ class Student(models.Model):
     teacher_ids = fields.One2many(
         "teacher.teacher", "student_id", string="teacher", index=True, tracking=1
     )
-    field_with_url = fields.Char('URL', default='www.dhruvish09.com')
+    field_with_url = fields.Char('URL', default='www.odoo.com')
+
+
+
+
+
+    @api.model
+    def name_create(self,name):
+        print("Self", self)
+        print("Student Name", name)
+        rtn = self.create({'name': name})
+        print("\n\nrtn", rtn)
+        print("rtn.name_get()[0]", rtn.name_get()[0])
+        return rtn.name_get()[0]
+
+
+
+    @api.model
+    def default_get(self, fields_list=[]):
+        print("\n\n\n\nfields_list",fields_list)
+        rtn = super(Student, self).default_get(fields_list)
+        print ("beforeeeeeeeeee", rtn)
+        rtn.update({"address": "abcccccc......"})
+        rtn.update({"roll_no": "12"})
+        print("\n\n\nReturn statement", rtn)
+        # rtn['is_agreed'] = True
+        return rtn
+
+    # def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+    #     print("view id",view_id)
+    #     print("view Type ",view_type)
+    #     print("toolbar",toolbar)
+    #     print("submenu",submenu)
+    #     res = super(Student, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
+    #     print("Return Disc",res)
+    #     return res

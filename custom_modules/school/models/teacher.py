@@ -1,5 +1,5 @@
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 class Teacher(models.Model):
     _name = 'teacher.teacher'
@@ -11,3 +11,5 @@ class Teacher(models.Model):
     student_id = fields.Many2one("student.student",string="Student", tracking=1)
     # res_partners_ids = fields.Many2many("res.partner", string="Res partner")
     res_partners_ids = fields.Many2many("student.student", string="Student List")
+
+

@@ -44,7 +44,7 @@ class StudentInfo(models.Model):
     )
     school_description = fields.Html(string="Description")
     # contact_id = fields.Many2one("res.partner", string="Contact detail")
-    school_id = fields.Many2one("school.profile", string="Contact detail")
+    school_id = fields.Many2one("res.partner", string="Contact detail")
     # school_reference = fields.Many2one("student.student", string="reference")
     res_partners =  fields.Many2many("res.partner", string="Res partner")
     student_gender = fields.Selection(
@@ -65,7 +65,6 @@ class StudentInfo(models.Model):
         print("values .....",values)
         # values['active'] = True
         rtn = super(StudentInfo, self).write(values)
-        print("Return data ",rtn)
         return rtn
 
     @api.returns('self', lambda value: value.id)
@@ -79,29 +78,31 @@ class StudentInfo(models.Model):
         rtn.school_rank = 3
         return rtn
 
-    def unlink(self):
-        # print("self statement ",self)
-        for stud in self:
-            if stud.school_rank > 0:
-                raise UserError("You cannot delete this %s student profile"%stud.name)
-        rtn = super(StudentInfo, self).unlink()
-        # print("Return statement",rtn)
-        return rtn
+    # def unlink(self):
+    #     # print("self statement ",self)
+    #     for stud in self:
+    #         if stud.school_rank > 0:
+    #             raise UserError("You cannot delete this %s student profile"%stud.name)
+    #     rtn = super(StudentInfo, self).unlink()
+    #     # print("Return statement",rtn)
+    #     return rtn
 
     @api.model
     def name_create(self,name):
         print("Self",self)
         print("School Name",name)
         rtn = self.create({'name':name})
-        print("rtn",rtn)
+        print("\n\nrtn",rtn)
         # print("rtn.name_get()[0]",rtn.name_get()[0])
         return rtn.name_get()[0]
 
     @api.model
     def default_get(self, fields_list=[]):
-        print("fields_list",fields_list)
+        print("\n\n\n\nfields_list",fields_list)
         rtn = super(StudentInfo, self).default_get(fields_list)
-        print("Return statement",rtn)
+        print ("beforeeeeeeeeee", rtn)
+        rtn.update({"school_description": "xyzzzzzzzzzzzz...."})
+        print("\n\n\nReturn statement",rtn)
         return rtn
 
 
