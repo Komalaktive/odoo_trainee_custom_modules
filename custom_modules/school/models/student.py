@@ -10,42 +10,76 @@ class Student(models.Model):
 
     name = fields.Char(string="Student Name")
     student_gender = fields.Selection(
-        [("Female", "female"), ("Male", "male"), ("Others", "others")],
-        string="Gender"
+        [("Female", "female"), ("Male", "male"), ("Others", "others")], string="Gender"
     )
     is_agreed = fields.Boolean(string="Is Agreed?")
+    state = fields.Selection(
+        string="Status",
+        default="draft",
+        readonly=True,
+        copy=False,
+        selection=[("draft", "Draft"), ("confirm", "Validated"), ("done", "Done")],
+    )
     roll_no = fields.Integer(string="Roll No")
     address = fields.Char(string="Address")
     color = fields.Integer()
     teacher_ids = fields.One2many(
         "teacher.teacher", "student_id", string="teacher", index=True, tracking=1
     )
-    field_with_url = fields.Char('URL', default='www.odoo.com')
+    field_with_url = fields.Char("URL", default="www.odoo.com")
 
+    def action_confirm(self):
+        self.state = "confirm"
 
+    def action_draft(self):
+        self.state = "draft"
 
-
+    def action_done(self):
+        self.state = "done"
 
     @api.model
-    def name_create(self,name):
+    def name_create(self, name):
         print("Self", self)
         print("Student Name", name)
-        rtn = self.create({'name': name})
+        rtn = self.create({"name": name})
         print("\n\nrtn", rtn)
         print("rtn.name_get()[0]", rtn.name_get()[0])
         return rtn.name_get()[0]
 
-
-
     @api.model
     def default_get(self, fields_list=[]):
-        print("\n\n\n\nfields_list",fields_list)
+        print("\n\n\n\nfields_list", fields_list)
         rtn = super(Student, self).default_get(fields_list)
-        print ("beforeeeeeeeeee", rtn)
+        print("beforeeeeeeeeee", rtn)
         rtn.update({"address": "abcccccc......"})
         rtn.update({"roll_no": "12"})
         print("\n\n\nReturn statement", rtn)
         # rtn['is_agreed'] = True
+        return rtn
+
+    def unlink(self):
+        rtn = super(Student, self).unlink()
+        return rtn
+
+    def clear_record_data(self):
+        self.write(
+            {
+                "name": "",
+                "student_gender": "",
+                "is_agreed": "",
+                "roll_no": "",
+                "address": "",
+            }
+        )
+
+    @api.returns("self", lambda value: value.id)
+    def copy(self, default={}):
+        # default['active'] = False
+        default["name"] = "copy (" + self.name + ")"
+        print("default values", default)
+        # print("self recordset ",self)
+        rtn = super(Student, self).copy(default=default)
+        print("Return statement", rtn)
         return rtn
 
     # def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):

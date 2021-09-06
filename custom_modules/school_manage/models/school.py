@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api , _
+from odoo import models, fields, api, _
 from openerp.exceptions import ValidationError
 
 
@@ -8,7 +8,9 @@ class StudentInfo(models.Model):
     _name = "school.profile"
     _description = "School Management"
 
-    name = fields.Char(string="School Name", help="this is school Name", default="kotak school")
+    name = fields.Char(
+        string="School Name", help="this is school Name", default="kotak school"
+    )
     email = fields.Char(string="Email")
     phone = fields.Char(string="Phone")
     is_virtual_class = fields.Boolean(
@@ -35,6 +37,13 @@ class StudentInfo(models.Model):
         default="public",
     )
     documents = fields.Binary(string="Documents")
+    state = fields.Selection(
+        string="Status",
+        default="draft",
+        readonly=True,
+        copy=False,
+        selection=[("draft", "Draft"), ("confirm", "Validated"), ("done", "Done")],
+    )
     document_name = fields.Char(string="File Name")
     school_image = fields.Image(
         string="upload school Image",
@@ -46,35 +55,50 @@ class StudentInfo(models.Model):
     # contact_id = fields.Many2one("res.partner", string="Contact detail")
     school_id = fields.Many2one("res.partner", string="Contact detail")
     # school_reference = fields.Many2one("student.student", string="reference")
-    res_partners =  fields.Many2many("res.partner", string="Res partner")
+    res_partners = fields.Many2many("res.partner", string="Res partner")
     student_gender = fields.Selection(
-        [("Female", "female"), ("Male", "male"), ("Others","others")],
+        [("Female", "female"), ("Male", "male"), ("Others", "others")],
         string="Gender",
     )
     active = fields.Boolean(string="active", default="True")
 
+    def action_confirm(self):
+        self.state = "confirm"
+
+    def action_draft(self):
+        self.state = "draft"
+
+    def action_done(self):
+        self.state = "done"
+
+    # def custom_method(self):
+    #     self.ensure_one()
+    #     print(self.name)
+    #     print(self.school_id.name)
+
     @api.model_create_multi
-    def create(self, values):   
-        print("values of created method ",values)
-        print("self",self)    
+    def create(self, values):
+        print("values of created method ", values)
+        print("self", self)
         rtn = super(StudentInfo, self).create(values)
-        
+
         print("Return statement", rtn)
         return rtn
+
     def write(self, values):
-        print("values .....",values)
+        print("values .....", values)
         # values['active'] = True
         rtn = super(StudentInfo, self).write(values)
         return rtn
 
-    @api.returns('self', lambda value: value.id)
-    def copy(self, default = {}):
+    @api.returns("self", lambda value: value.id)
+    def copy(self, default={}):
         # default['active'] = False
-        default['name'] = "copy ("+self.name+")"
-        print("default values",default)
+        default["name"] = "copy (" + self.name + ")"
+        print("default values", default)
         # print("self recordset ",self)
         rtn = super(StudentInfo, self).copy(default=default)
-        print("Return statement",rtn)
+        print("Return statement", rtn)
         rtn.school_rank = 3
         return rtn
 
@@ -88,29 +112,27 @@ class StudentInfo(models.Model):
     #     return rtn
 
     @api.model
-    def name_create(self,name):
-        print("Self",self)
-        print("School Name",name)
-        rtn = self.create({'name':name})
-        print("\n\nrtn",rtn)
+    def name_create(self, name):
+        print("Self", self)
+        print("School Name", name)
+        rtn = self.create({"name": name})
+        print("\n\nrtn", rtn)
         # print("rtn.name_get()[0]",rtn.name_get()[0])
         return rtn.name_get()[0]
 
     @api.model
     def default_get(self, fields_list=[]):
-        print("\n\n\n\nfields_list",fields_list)
+        print("\n\n\n\nfields_list", fields_list)
         rtn = super(StudentInfo, self).default_get(fields_list)
-        print ("beforeeeeeeeeee", rtn)
+        print("beforeeeeeeeeee", rtn)
         rtn.update({"school_description": "xyzzzzzzzzzzzz...."})
-        print("\n\n\nReturn statement",rtn)
+        print("\n\n\nReturn statement", rtn)
         return rtn
-
 
     # _sql_constraints = [('name_unique','unique(name)',"please enter unique school name, Given school name already exists."),
     # ('email_unique','unique(email)',"please enter unique email id, Given email id already exist."),
     # ('phone_unique','unique(phone)',"please enter another phone number, Given phone number already exist."),
     # ('school_rank', 'CHECK (school_rank>1)', 'School Rank must be positive!')]
-
 
     # @api.constrains('school_rank')
     # def _check_something(self):
@@ -126,24 +148,22 @@ class StudentInfo(models.Model):
     #     return True
 
     def clear_record_data(self):
-        self.write({
-            'name': '',
-            'email': '',
-            'phone': '',
-            'is_virtual_class': '',
-            'result': '',
-            'address': '',
-            'student_gender': '',
-            'Principle_msg': '',
-            'Teacher_msg': '',
-            'open_date': '',
-            'school_type': '',
-            'documents': '',
-            'document_name': '',
-            'school_image': '',
-            'school_description': '',
-        
-
-        })
-
-        
+        self.write(
+            {
+                "name": "",
+                "email": "",
+                "phone": "",
+                "is_virtual_class": "",
+                "result": "",
+                "address": "",
+                "student_gender": "",
+                "Principle_msg": "",
+                "Teacher_msg": "",
+                "open_date": "",
+                "school_type": "",
+                "documents": "",
+                "document_name": "",
+                "school_image": "",
+                "school_description": "",
+            }
+        )

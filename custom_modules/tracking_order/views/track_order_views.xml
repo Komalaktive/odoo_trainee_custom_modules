@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="track_tree_view" model="ir.ui.view">
+      <field name="name">track.tree.view</field>
+      <field name="model">tracking.order</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="ref_id"/>
+          <field name="user_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record  id="track_form_view" model="ir.ui.view">
+      <field name="name">task.form.view</field>
+      <field name="model">tracking.order</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="ref_id"/>
+              <field name="user_id"/>
+            </group>
+          </sheet>
+        
+        </form>
+      </field>
+    </record>
+
+    <record id="track_action" model="ir.actions.act_window">
+        <field name="name">Track Order</field>
+        <field name="res_model">tracking.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="track_order_root_menu" name="Track Order"/>
+    <menuitem name="Track Order" id="track_root_menu" action="track_action"
+               parent="sale.menu_sale_config"/>
+
+              
+</odoo>

@@ -21,6 +21,16 @@
         <field name="model">school.profile</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_confirm" string="Confirm" class="oe_highlight" 
+                         type="object" states="draft"/>
+
+                    <button id="button_done" name="action_done" string="Done" class="border border-primary"  type="object"/>
+                    <button id="button_cancel" name="action_draft" string="Cancel" states="create,received,done" type="object"/>
+                    <field name="state" widget="statusbar" options="{'clickable':0}" statusbar_visible="draft,confirm,done"/>
+               </header>
+
+
                 <sheet>
 
                     <group>

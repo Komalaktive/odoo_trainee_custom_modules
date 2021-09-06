@@ -19,7 +19,30 @@
       <field name="model">student.student</field>
       <field name="arch" type="xml">
         <form>
+            <header>
+                    <button name="action_confirm" string="Confirm" class="oe_highlight" 
+                         type="object" states="draft"/>
+
+                    <button id="button_done" name="action_done" string="Done" class="border border-primary"  type="object"/>
+                    <button id="button_cancel" name="action_draft" string="Cancel" states="create,received,done" type="object"/>
+                    <field name="state" widget="statusbar" options="{'clickable':0}" statusbar_visible="draft,confirm,done"/>
+            </header>
+
           <sheet>
+                    <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="%(student_action)d"
+                                string="Home" type="action" icon="fa-home"/>
+
+                            <button class="oe_stat_button" name="clear_record_data"
+                                string="Clear" type="object" icon="fa-eraser"/>
+
+                            <button class="oe_stat_button" name="unlink"
+                                string="Delete" type="object" icon="fa-trash"/>
+
+
+                            <button class="oe_stat_button" name="copy"
+                                string="Copy" type="object" icon="fa-copy"/>
+                    </div>
             <group>
               <group>
                 <field name="name" string="Student Name"/>

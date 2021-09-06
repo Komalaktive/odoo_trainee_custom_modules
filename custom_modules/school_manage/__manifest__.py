@@ -7,9 +7,7 @@
 This module contains all the common details of collage student.
     """,
     "website": "https://www.odoo.com/page/employees",
-    "depends": [
-        "sale","purchase"
-    ],
+    "depends": ["sale", "purchase"],
     "data": [
         "security/ir.model.access.csv",
         "views/school_view.xml",
