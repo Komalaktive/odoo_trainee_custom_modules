@@ -14,6 +14,7 @@
         "security/ir.model.access.csv",
         "views/student_views.xml",
         "views/teacher_views.xml",
+        "report/student_report.xml",
     ],
     "installable": True,
     "auto_install": False,

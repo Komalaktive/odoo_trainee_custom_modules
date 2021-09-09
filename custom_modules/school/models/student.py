@@ -9,6 +9,7 @@ class Student(models.Model):
     _description = "Student Management"
 
     name = fields.Char(string="Student Name")
+    sequence = fields.Integer('Sequence', default=1, help='Gives the sequence order when displaying a product list')
     student_gender = fields.Selection(
         [("Female", "female"), ("Male", "male"), ("Others", "others")], string="Gender"
     )

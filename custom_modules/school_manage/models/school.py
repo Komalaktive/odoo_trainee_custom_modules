@@ -47,8 +47,8 @@ class StudentInfo(models.Model):
     document_name = fields.Char(string="File Name")
     school_image = fields.Image(
         string="upload school Image",
-        max_width=50,
-        max_height=50,
+        max_width=400,
+        max_height=400,
         verify_resolution=True,
     )
     school_description = fields.Html(string="Description")

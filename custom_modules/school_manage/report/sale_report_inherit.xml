@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<template id="sale_report_inherit_template" inherit_id="sale.report_saleorder_document">
+		<!-- <xpath expr="//div[@t-field='doc.partner_id']" position="after">
+			<div t-field="doc.partner_id"
+                t-options='{"widget": "contact", "fields": ["phone", "email"], "no_marker": True, "phone_icons": True}'/>
+        </xpath> -->
+
+        <xpath expr="//div[@id='informations']" position="before">
+         	<p><span t-field="doc.sale_description"/></p>
+        </xpath>
+    </template>
+</odoo>

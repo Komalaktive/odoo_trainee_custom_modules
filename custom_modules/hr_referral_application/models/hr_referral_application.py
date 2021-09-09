@@ -5,7 +5,7 @@ class Practical(models.Model):
     _name = "hr.referral.application"
     _description = "Practical Task"
 
-    name = fields.Char(string="Name")
+    name = fields.Char(string="Name", required="True")
     email = fields.Char(string="Email")
     state = fields.Selection(
         string="Status",

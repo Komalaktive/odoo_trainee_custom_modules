@@ -6,7 +6,8 @@
       <field name="model">student.student</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name" string="Student Name" />
+          <field name="sequence" widget="handle"/>
+          <field name="name" string="Student Name"/>
           <field name="roll_no" string="Roll No" />
           <field name="address" string="Address" />
           <field name="field_with_url" widget="url"/>

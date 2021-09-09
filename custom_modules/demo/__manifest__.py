@@ -17,6 +17,7 @@
         "views/product_variant_views.xml",
         "views/sale_order_views.xml",
         "views/random_string_views.xml",
+        "report/sale_report_inherit.xml"
     ],
     # only loaded in demonstration mode
     "demo": [],

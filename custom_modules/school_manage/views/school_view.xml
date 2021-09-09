@@ -65,7 +65,7 @@
                         </group>
                     </group>
 
-                     <group><field name="res_partners"/></group> 
+                     <group><field name="res_partners" widget="many2many_tags"/></group> 
                      
                     <group>
                         <field name="documents" filename="document_name"/>

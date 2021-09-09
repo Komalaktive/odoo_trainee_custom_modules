@@ -15,6 +15,7 @@ This module contains all the common details of collage student.
         "views/purchase_view.xml",
         "views/contact_view.xml",
         "report/school_profile_report.xml",
+        "report/sale_report_inherit.xml",
     ],
     "demo": [],
     "installable": True,
