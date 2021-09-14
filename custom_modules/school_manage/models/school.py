@@ -71,6 +71,9 @@ class StudentInfo(models.Model):
     def action_done(self):
         self.state = "done"
 
+    def test_data(self):
+        return "komal"
+
     # def custom_method(self):
     #     self.ensure_one()
     #     print(self.name)

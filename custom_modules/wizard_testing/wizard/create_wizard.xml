@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="create_wizard_form_view" model="ir.ui.view">
+        <field name="name">Create Wizard Form View</field>
+        <field name="model">create.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="WIZARD CREATE" name="cancel_object"
+                         type="object"/>
+                </footer>
+            </form>
+           
+        </field>
+    </record>
+
+    <record id="action_create_wizard" model="ir.actions.act_window">
+        <field name="name">Wizard action</field>
+        <field name="res_model">create.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

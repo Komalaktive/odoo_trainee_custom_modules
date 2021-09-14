@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="wizard_test_tree_view" model="ir.ui.view">
+      <field name="name">wizard tree view</field>
+      <field name="model">wizard.testing</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+
+    <record  id="wizard_test_form_view" model="ir.ui.view">
+      <field name="name">wizard form vies</field>
+      <field name="model">wizard.testing</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button type='action' name='%(action_create_wizard)d' string="komal" ></button>
+             <button type='object' name='call_btn' string="call please" ></button>
+          </header>
+          <sheet>
+            <group>
+               <field name="name"/>
+               <field name="value"/>
+               <field name="value2"/>
+            </group>
+          </sheet>
+        
+        </form>
+      </field>
+    </record>
+
+    <record id="wizard_test_action" model="ir.actions.act_window">
+        <field name="name">Wizard Test</field>
+        <field name="res_model">wizard.testing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="wizard_test_root_menu" name="Student Form"/>
+    <menuitem name="Student Form" id="track_root_menu" action="wizard_test_action"
+               parent="wizard_test_root_menu"/>
+
+              
+</odoo>

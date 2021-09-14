@@ -13,13 +13,15 @@
                             <center>
                                 <div class="col-xs-8" style="margin:auto">
                                     <img t-attf-src="data:image/*;base64,{{o.school_image}}"/>
+                                    <!-- to call a function -->
+                                    <t t-esc="o.test_data()"/>
                                     <table class="table table-condensed" style="border: 3px dotted black !important;">
                                         <tr>
                                             <td width="40%">
                                                 <p>
                                                     <h2>
                                                         <strong>
-                                                            <span t-field="o.name"/>
+                                                                <span t-field="o.name"/>
                                                         </strong>
                                                     </h2>
                                                 </p>

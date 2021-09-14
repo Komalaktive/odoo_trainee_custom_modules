@@ -20,8 +20,8 @@ class Practical(models.Model):
     degree_id = fields.Many2one("hr.recruitment.degree", string="Degree", copy=False)
     dept_id = fields.Many2one("hr.job", string="Department", copy=False)
     ex_salary = fields.Monetary(string="Expected Salary", store=True, copy=False)
-    summary = fields.Text(string="Summary",copy=False)
-    joining_date = fields.Date(string="Expected joining Date",copy=False)
+    summary = fields.Text(string="Summary", copy=False)
+    joining_date = fields.Date(string="Expected joining Date", copy=False)
 
     def action_approved(self):
         for rec in self:
@@ -34,5 +34,3 @@ class Practical(models.Model):
     def action_cancel(self):
         for rec in self:
             rec.write({"state": "cancel"})
-
-         
