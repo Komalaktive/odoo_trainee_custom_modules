@@ -9,5 +9,4 @@ class Teacher(models.Model):
     name = fields.Char(string="teacher Name")
     language = fields.Char(string="Language")
     student_id = fields.Many2one("student.student", string="Student", tracking=1)
-    # res_partners_ids = fields.Many2many("res.partner", string="Res partner")
-    res_partners_ids = fields.Many2many("student.student", string="Student List")
+    # res_partners_ids = fields.Many2many("student.student", string="Student List")

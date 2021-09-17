@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class Student(models.Model):
@@ -26,12 +27,13 @@ class Student(models.Model):
         selection=[("draft", "Draft"), ("confirm", "Validated"), ("done", "Done")],
     )
     roll_no = fields.Integer(string="Roll No")
-    address = fields.Char(string="Address")
+    address = fields.Text(string="Address")
     color = fields.Integer()
     teacher_ids = fields.One2many(
         "teacher.teacher", "student_id", string="teacher", index=True, tracking=1
     )
     field_with_url = fields.Char("URL", default="www.odoo.com")
+    school_result = fields.Integer(string="School Rank")
 
     def action_confirm(self):
         self.state = "confirm"
@@ -41,6 +43,25 @@ class Student(models.Model):
 
     def action_done(self):
         self.state = "done"
+
+    _sql_constraints = [('name_unique','unique(name)',"Please enter unique school name, Given school name already exist"),
+    ('rollno_unique','unique(roll_no)',"Please enter other RollNo, Given roll number already exist"),
+    ('roll_no','CHECK(roll_no>1)','please enter positive Roll No' )]
+
+
+    @api.constrains('school_result')
+    def check_result(self):
+        for record in self:
+            if record.school_result < 4:
+                raise ValidationError("you are not eligible to get this rank!!!!!......")
+
+
+
+    # @api.constrains('school_result')
+    # def _check_something(self):
+    #     for record in self:
+    #         if record.school_result < 4:
+    #             raise ValidationError("u r not able to get this rank!!!!")
 
     @api.model
     def name_create(self, name):

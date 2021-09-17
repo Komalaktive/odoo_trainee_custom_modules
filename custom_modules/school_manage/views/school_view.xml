@@ -38,7 +38,7 @@
                             <button string="Clear Data" type="object" name="clear_record_data"
                                     class="btn btn-primary btn-sm "/>
                             <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
-                            <field name="name" string="School Name"/>
+                            <field name="name" string="School Name" groups="base.group_no_one"/>
                             <field name="email" placeholder="abc@gmail.com" widget="email"/>
                             <field name="phone" widget="phone"/>
                             <field name="is_virtual_class"/>

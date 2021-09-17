@@ -1,0 +1,29 @@
+<odoo>
+    <template id="demo_page" name="Demo page">
+        <t t-call="website.layout">
+            <t t-set="title">Demo Page</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <table id="partners_list">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="partners" t-as="partner">
+                                
+                                <td><t t-esc="partner.image_1920" t-options='{"widget":"image"}'/></td>
+                                <td><t t-esc="partner.name"/></td>
+                                <td><t t-esc="partner.email"/></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

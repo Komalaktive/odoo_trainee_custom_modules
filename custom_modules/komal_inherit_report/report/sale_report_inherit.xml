@@ -16,6 +16,20 @@
             <t t-else = "" ><td></td>
             </t>
         </xpath>
+
+
+
+       <!--  <xpath expr="//th[@name='th_description']" position="before">
+            <th>Product Image</th>
+        </xpath>
+        
+
+        <xpath expr="//td[@name='td_name']" position="before">
+            <td>
+                  <img t-attf-src="data:image/*;base64,{{line.product_id.image_1920}}"/>
+            </td>
+        </xpath> -->
+
         
     </template>
 </odoo>
