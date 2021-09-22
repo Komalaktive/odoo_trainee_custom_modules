@@ -12,11 +12,13 @@
     "depends": ["base", "mail"],
     "data": [
         "security/ir.model.access.csv",
-        "wizard/student_registration_wizard.xml",
+        # "wizard/student_registration_wizard.xml",
         "data/student_users_data.xml",
+        # "data/data.xml",
+        "report/student_report.xml",
         "views/student_views.xml",
         "views/teacher_views.xml",
-        "report/student_report.xml",
+        "views/res_config_setting.xml",
     ],
     "demo": [ 
     ],

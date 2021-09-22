@@ -11,6 +11,7 @@
         'views/demo_template.xml',
         'views/assets.xml',
         'views/inherit_template.xml',
+        'data/web_menu_data.xml',
 
     ],
     'auto_install': False,

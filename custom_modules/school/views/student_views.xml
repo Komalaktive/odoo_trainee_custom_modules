@@ -23,7 +23,6 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button type='action' name='%(action_student_wizard)d' string="Student Fees" ></button>
                     <button name="action_confirm" string="Confirm" class="oe_highlight" type="object" states="draft"/>
 
                     <button id="button_done" name="action_done" string="Done" class="border border-primary"  type="object"/>

@@ -14,7 +14,7 @@ class StudentInherit(models.AbstractModel):
         return {
             'doc_ids': student.student,
             'doc_model': model,
-            'data': data
+            'data': data,
             'docs': docs,
             'proforma': True
         }
