@@ -10,7 +10,6 @@
     "website": "http://www.yourcompany.com",
     "category": "Business",
     "version": "14.0.1.0.0",
-    "depends": ["base","stock","sale_management"],
+    "depends": ["base", "stock", "sale_management"],
     "data": ["report/sale_report_inherit.xml"],
-   
 }

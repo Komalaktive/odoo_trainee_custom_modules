@@ -132,12 +132,26 @@ class StudentInfo(models.Model):
         print("\n\n\nReturn statement", rtn)
         return rtn
 
-    _sql_constraints = [('name_unique','unique(name)',"please enter unique school name, Given school name already exists."),
-    ('email_unique','unique(email)',"please enter unique email id, Given email id already exist."),
-    ('phone_unique','unique(phone)',"please enter another phone number, Given phone number already exist."),
-    ('school_rank', 'CHECK (school_rank>1)', 'School Rank must be positive!')]
+    _sql_constraints = [
+        (
+            "name_unique",
+            "unique(name)",
+            "please enter unique school name, Given school name already exists.",
+        ),
+        (
+            "email_unique",
+            "unique(email)",
+            "please enter unique email id, Given email id already exist.",
+        ),
+        (
+            "phone_unique",
+            "unique(phone)",
+            "please enter another phone number, Given phone number already exist.",
+        ),
+        ("school_rank", "CHECK (school_rank>1)", "School Rank must be positive!"),
+    ]
 
-    @api.constrains('school_rank')
+    @api.constrains("school_rank")
     def _check_something(self):
         for record in self:
             if record.school_rank < 4:

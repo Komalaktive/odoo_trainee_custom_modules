@@ -2,12 +2,17 @@
 
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
+import logging
+
+_logger = logging.getLogger(__name__)
+
 
 
 class Student(models.Model):
     _name = "student.student"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Student Management"
+    _rac_name = "roll_no"
 
     name = fields.Char(string="Student Name")
     sequence = fields.Integer(
@@ -37,6 +42,10 @@ class Student(models.Model):
 
     def action_confirm(self):
         self.state = "confirm"
+        import pdb;pdb.set_trace()
+        _logger.info("THIS IS INFO LOGGER")
+        _logger.warning("THIS IS warning")
+        _logger.error("THIS IS error")
 
     def action_draft(self):
         self.state = "draft"
@@ -44,18 +53,27 @@ class Student(models.Model):
     def action_done(self):
         self.state = "done"
 
-    _sql_constraints = [('name_unique','unique(name)',"Please enter unique school name, Given school name already exist"),
-    ('rollno_unique','unique(roll_no)',"Please enter other RollNo, Given roll number already exist"),
-    ('roll_no','CHECK(roll_no>1)','please enter positive Roll No' )]
+    _sql_constraints = [
+        (
+            "name_unique",
+            "unique(name)",
+            "Please enter unique school name, Given school name already exist",
+        ),
+        (
+            "rollno_unique",
+            "unique(roll_no)",
+            "Please enter other RollNo, Given roll number already exist",
+        ),
+        ("roll_no", "CHECK(roll_no>1)", "please enter positive Roll No"),
+    ]
 
-
-    @api.constrains('school_result')
+    @api.constrains("school_result")
     def check_result(self):
         for record in self:
             if record.school_result < 4:
-                raise ValidationError("you are not eligible to get this rank!!!!!......")
-
-
+                raise ValidationError(
+                    "you are not eligible to get this rank!!!!!......"
+                )
 
     # @api.constrains('school_result')
     # def _check_something(self):
