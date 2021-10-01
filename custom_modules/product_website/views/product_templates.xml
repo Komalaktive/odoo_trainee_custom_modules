@@ -1,0 +1,34 @@
+<odoo>
+    <template id="product_demo_page" name="Product page">
+        <t t-call="website.layout">
+            <t t-set="title">Product Page</t>
+            <div class="oe_structure">
+                <div class="oe_container">
+                    <table id="product_list">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>stock on hand</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="products" t-as="product">
+                                <td>
+                                    <span class="product_image" t-field="product.image_1920"
+                                          t-options='{"widget":"image"}'/>
+                                </td>
+                                <td>
+                                    <a t-attf-href="/product/info/#{product.id}"> <t t-esc="product.name"/></a>
+                                </td>
+                                <td>
+                                    <t t-esc="product.qty_available"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="product_description_page" name="Product Description page">
+        <t t-call="website.layout">
+            <t t-set="title">Product Page</t>
+            <div class="oe_structure">
+                <div class="oe_container">
+                    <div class="oe_left_container">
+                         <span class="product_image" t-field="product.image_1920"
+                                          t-options='{"widget":"image"}'/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

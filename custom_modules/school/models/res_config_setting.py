@@ -9,11 +9,11 @@ class ResConfigSettings(models.TransientModel):
 
     def _domain_partner_id(self):
         print("======self domain partner0=====",self)
-        # partners = self.env['sale.order'].search([]).filtered(lambda l: l.date_order.month == datetime.today().month).mapped("partner_id")
-        # print("===partners==", partners, len(partners))
-        # if not self.user_has_groups('hr_timesheet.group_hr_timesheet_approver'):
-        #   return [('user_id', '=', self.env.user.id)]
-        # return [('partner_id', 'in', partners)]
+        partners = self.env['sale.order'].search([]).filtered(lambda l: l.date_order.month == datetime.today().month).mapped("partner_id")
+        print("===partners==", partners, len(partners))
+        if not self.user_has_groups('hr_timesheet.group_hr_timesheet_approver'):
+          return [('user_id', '=', self.env.user.id)]
+        return [('partner_id', 'in', partners)]
 
     module_sale_management = fields.Boolean("Sales")
     # group_sale_delivery_address = fields.Boolean("Customer Addresses",
@@ -29,15 +29,15 @@ class ResConfigSettings(models.TransientModel):
         res = super(ResConfigSettings, self).get_values()
         res['primary_school'] = self.env['ir.config_parameter'].get_param('school.primary_school')
 
-        # partners = self.env['sale.order'].search([]).filtered(
-        #   lambda l: l.date_order.month == datetime.today().month).mapped("partner_id")
-        # print("===get partners==", partners, len(partners))
+        partners = self.env['sale.order'].search([]).filtered(
+          lambda l: l.date_order.month == datetime.today().month).mapped("partner_id")
+        print("===get partners==", partners, len(partners))
 
         partner_ids= self.env['ir.config_parameter'].get_param('school.partner_ids')
         print("===get==",partner_ids)
-        res.update(
-            partner_ids = [(6,0,literal_eval(partner_ids))],
-        )
+        # res.update(
+        #     partner_ids = [(6,0,literal_eval(partner_ids))],
+        # )
         return res
 
     def set_values(self):

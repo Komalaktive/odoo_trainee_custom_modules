@@ -1,0 +1,10 @@
+.product_list {
+    width: 50%;
+    height: 30%;
+    align: center;
+}
+.product_list th,td{
+    padding: 10px 15px;
+    text-align: center;
+    border: 1px solid #000;
+}
