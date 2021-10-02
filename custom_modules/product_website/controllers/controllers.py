@@ -13,4 +13,5 @@ class Product(http.Controller):
 class Product(http.Controller):
     @http.route("/product/info/<model('product.template'):product>", type="http", website=True, auth="public")
     def form(self, product, **kw):
+        print("=======product====",product)
         return request.render("product_website.product_description_page", {"product": product})

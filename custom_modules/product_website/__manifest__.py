@@ -11,11 +11,9 @@
     'data': [
         # 'security/ir.model.access.csv',
         'data/product_menu_data.xml',
-        'views/assets.xml',
         'views/product_templates.xml',
-        'views/product_description_template.xml'
-
-    ],
+        'views/assets.xml',
+        'views/product_description_template.xml' ],
     'demo': [
     ],
 }

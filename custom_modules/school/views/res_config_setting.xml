@@ -4,7 +4,7 @@
     <record id="res_config_settings_view_form" model="ir.ui.view">
         <field name="name">res.config.settings.view.form.school</field>
         <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('settings')]" position="inside">
                 <div class="app_settings_block" data-string="School" string="School" data-key="school">
@@ -22,7 +22,7 @@
                             </div>
                         </div>
 
-                         <div class="col-12 col-lg-6 o_setting_box" id="invoice_delivery_addresses">
+                        <div class="col-12 col-lg-6 o_setting_box" id="invoice_delivery_addresses">
                             <div class="o_setting_left_pane">
                                 <field name="teacher_active"/>
                             </div>
@@ -76,15 +76,15 @@
     </record>
 
     <menuitem id="menu_school_configuration"
-        name="Configuration"
-        parent="school_root"
+              name="Configuration"
+              parent="school_root"
     />
 
     <menuitem id="menu_school_settings"
-        name="Settings"
-        parent="menu_school_configuration"
-        sequence="0"
-        action="action_school_config_settings"
+              name="Settings"
+              parent="menu_school_configuration"
+              sequence="0"
+              action="action_school_config_settings"
     />
 
 </odoo>

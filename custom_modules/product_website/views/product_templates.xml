@@ -4,7 +4,7 @@
             <t t-set="title">Product Page</t>
             <div class="oe_structure">
                 <div class="oe_container">
-                    <table id="product_list">
+                    <table id="product_list" align="center">
                         <thead>
                             <tr>
                                 <th>Image</th>
@@ -13,7 +13,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr t-foreach="products" t-as="product">
+                            <tr class="table_row" t-foreach="products" t-as="product">
                                 <td>
                                     <span class="product_image" t-field="product.image_1920"
                                           t-options='{"widget":"image"}'/>
