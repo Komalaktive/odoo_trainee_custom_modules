@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="referral_program_template" name="Referral Program">
+        <t t-call="website.layout">
+            <h1 class="text-center">Referral Registration</h1>
+            <div class="oe_structure">
+                <form role="form" action="/submit_referral_program" type="post">
+                    <div class="form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="abc@gmail.com"/>
+                        </div>
+                        <div class="oe_login_buttons">
+                            <button type="submit" name="csrf_token" t-att-value="request.csrf_token()" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+    <template id="thank_you_template" name="Thank you">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="alert alert-success" role="alert">
+                        Thank You
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

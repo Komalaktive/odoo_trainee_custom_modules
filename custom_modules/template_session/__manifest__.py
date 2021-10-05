@@ -9,9 +9,10 @@
     "license": "AGPL-3",
     "data": [
         "data/web_menu_data.xml",
-        "views/demo_template.xml",
+        "views/partner_list_template.xml",
         "views/assets.xml",
         "views/inherit_template.xml",
+        "views/partner_description_page.xml",
     ],
     "auto_install": False,
     "installable": True,

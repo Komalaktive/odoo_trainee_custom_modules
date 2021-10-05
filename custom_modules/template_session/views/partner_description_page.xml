@@ -1,0 +1,23 @@
+<odoo>
+    <template id="partner_description_page" name="partner details page">
+        <t t-call="website.layout">
+            <t t-set="title">Partner Detail Page</t>
+            <div class="flex-container">
+                <div>
+                    <span t-field="partner.image_1920" t-options='{"widget":"image"}'/>
+                </div>
+                <div>
+                    <h2 style="text-align:left"><u><span t-field="partner.name"></span></u></h2>
+                    <t t-esc="partner.email"/>
+                    <br></br>
+                    <t t-esc="partner.phone"/>
+                    <br>
+                    <t t-esc="partner.street"/>
+                    </br>
+
+                </div>
+
+            </div>
+        </t>
+    </template>
+</odoo>

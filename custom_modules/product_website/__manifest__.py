@@ -7,7 +7,7 @@
     'website': "http://www.yourcompany.com",
     'category': 'Business',
     'version': '14.0.1.0.0',
-    'depends': ['website'],
+    'depends': ['website','sale_website'],
     'data': [
         # 'security/ir.model.access.csv',
         'data/product_menu_data.xml',

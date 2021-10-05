@@ -5,18 +5,43 @@
             <t t-set="title">Product Description</t>
             <div class="flex-container">
                 <div>
-                     <span t-field="product.image_1920"
-                                          t-options='{"widget":"image"}'/>
+                    <span t-field="product.image_1920"
+                          t-options='{"widget":"image"}'/>
                 </div>
                 <div>
-                    <h2><span t-field="product.name"></span></h2>
-                    <t t-esc="product.list_price" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-                    <div>
-                        <t t-if="product.product_variant_id">
-                            <h3><span t-field="product.attribute_line_ids"/></h3>
+                    <h2>
+                        <span t-field="product.name"></span>
+                    </h2>
+                    <t t-esc="product.list_price"
+                       t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th name="heading">Product Varients:</th>
+                            </tr>
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Values</th>
+                            </tr>
+                        </thead>
+                        <t t-foreach="product.attribute_line_ids" t-as="line">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <t t-esc="line.attribute_id.name"/>
+                                    </td>
+
+                                    <td t-foreach="line.value_ids" t-as="values">
+                                        <input type="radio" name="" value="values"/>
+                                        <br></br>
+                                        <t t-esc="values.name"/>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </t>
-                    </div>
+                    </table>
                 </div>
+
             </div>
         </t>
     </template>

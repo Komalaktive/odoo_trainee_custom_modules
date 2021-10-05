@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/hr_referral_application/security/ir.model.access.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/product_website/security/ir.model.access.csv">
           <value>
             <Attribute>

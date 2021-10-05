@@ -10,14 +10,18 @@
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Address</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr t-foreach="partners" t-as="partner">
                                 
                                 <td><t t-esc="partner.image_1920" t-options='{"widget":"image"}'/></td>
-                                <td><t t-esc="partner.name"/></td>
+                                <td><a t-attf-href="/partner/details/#{partner.id}"><t t-esc="partner.name"/></a></td>
                                 <td><t t-esc="partner.email"/></td>
+                                <td><t t-esc="partner.phone"/></td>
+                                <td><t t-esc="partner.street"/> </td>
 
                             </tr>
                         </tbody>

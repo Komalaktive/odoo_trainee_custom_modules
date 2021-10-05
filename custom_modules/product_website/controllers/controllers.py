@@ -10,8 +10,9 @@ class Product(http.Controller):
         return request.render("product_website.product_demo_page", {"products": products})
 
 
-class Product(http.Controller):
+class ProductDescription(http.Controller):
     @http.route("/product/info/<model('product.template'):product>", type="http", website=True, auth="public")
     def form(self, product, **kw):
         print("=======product====",product)
         return request.render("product_website.product_description_page", {"product": product})
+

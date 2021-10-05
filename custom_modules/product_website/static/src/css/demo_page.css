@@ -52,3 +52,7 @@ td{
   font-size: 30px;
   width: 50%;
 }
+
+.table_description{
+    border-collapse:collapse;
+    }
