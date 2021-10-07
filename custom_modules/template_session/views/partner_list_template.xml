@@ -4,7 +4,7 @@
             <t t-set="title">Demo Page</t>
             <div class="oe_structure">
                 <div class="container">
-                    <table id="partners_list">
+                    <table id="partners_list" align="center">
                         <thead>
                             <tr>
                                 <th>Image</th>
@@ -12,16 +12,19 @@
                                 <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Address</th>
+                                <th>TL</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr t-foreach="partners" t-as="partner">
-                                
+
                                 <td><t t-esc="partner.image_1920" t-options='{"widget":"image"}'/></td>
                                 <td><a t-attf-href="/partner/details/#{partner.id}"><t t-esc="partner.name"/></a></td>
                                 <td><t t-esc="partner.email"/></td>
                                 <td><t t-esc="partner.phone"/></td>
                                 <td><t t-esc="partner.street"/> </td>
+<!--                                <td><input type="checkbox" t-esc="partner.team_leader"/></td>-->
+                                <td><input type="checkbox" disabled="true" t-att-checked="(partner.team_leader) and 'checked'"/></td>
 
                             </tr>
                         </tbody>

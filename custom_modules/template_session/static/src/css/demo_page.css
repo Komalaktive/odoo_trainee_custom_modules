@@ -10,11 +10,22 @@
 .flex-container {
   display: flex;
   flex-direction: row;
+  border-style: double;
  }
 .flex-container > div {
   margin: 10px;
-  background-color: #f1f1f1;
   padding: 20px;
   font-size: 30px;
   width: 50%;
+}
+
+@media (max-width: 800px) {
+  .flex-container {
+    flex-direction: column;
+  }
+}
+
+.partner_description{
+width:100%
+height:30
 }
