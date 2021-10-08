@@ -18,7 +18,7 @@ class Practical(models.Model):
     currency_id = fields.Many2one("res.currency", string="Currency", copy=False)
     reference_id = fields.Many2one("hr.employee", string="Referral Name", copy=False)
     degree_id = fields.Many2one("hr.recruitment.degree", string="Degree", copy=False)
-    dept_id = fields.Many2one("hr.job", string="Department", copy=False)
+    department_id = fields.Many2one("hr.job", string="Department", copy=False)
     ex_salary = fields.Monetary(string="Expected Salary", store=True, copy=False)
     summary = fields.Text(string="Summary", copy=False)
     joining_date = fields.Date(string="Expected joining Date", copy=False)

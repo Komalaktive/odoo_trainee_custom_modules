@@ -39,7 +39,7 @@
                   <field name="degree_id"/>
               </group>
               <group>
-                  <field name="dept_id"/>
+                  <field name="department_id"/>
                   <field name="ex_salary"/>
                   <field name="summary"/>
                   <field name="joining_date"/>

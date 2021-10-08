@@ -6,11 +6,11 @@ class ReferalApplication(http.Controller):
     def referral_program(self):
         reference_id = request.env["hr.employee"].sudo().search([])
         degree_id = request.env["hr.recruitment.degree"].sudo().search([])
-        dept_id = request.env["hr.recruitment.degree"].sudo().search([])
+        department_id = request.env["hr.job"].sudo().search([])
         vals = {
             'reference_id':reference_id,
             'degree_id':degree_id,
-            'dept_id':dept_id,
+            'department_id':department_id,
 
         }
         return request.render("hr_referral_application.referral_program_template",vals)
@@ -23,7 +23,11 @@ class ReferalApplication(http.Controller):
                 'email':kw.get('email'),
                 'reference_id':kw.get('reference_id'),
                 'degree_id':kw.get('degree_id'),
-                'dept_id':kw.get('dept_id'),
+                'department_id':kw.get('department_id'),
+                'ex_salary':kw.get('ex_salary'),
+                'joining_date':kw.get('joining_date'),
+                'summary':kw.get('summary'),
+
             }
             print("=============vals==============",vals)
             # request.env["hr.referral.application"].sudo().create(vals)
