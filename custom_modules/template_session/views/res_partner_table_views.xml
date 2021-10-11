@@ -6,11 +6,19 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[4]" position="after">
-                <page string="Team Leader">
-                    <field name="team_ids">
+                <page string="Team Leader" attrs="{'invisible': [('team_leader','==',False)]}">
+                    <field name="team_ids" mode="tree">
                         <form>
-                            <field name="name" readonly="1"/>
-                            <field name="member_id"/>
+                            <group>
+                                <group>
+                                    <field name="member_id" string="Name" options="{'no_open': True}"/>
+                                    <field name="email"/>
+                                    <field name="phone"/>
+                                </group>
+                                <group>
+                                    <field name="address" readonly="1"/>
+                                </group>
+                            </group>
                         </form>
                     </field>
                 </page>

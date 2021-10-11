@@ -3,7 +3,6 @@
         <t t-call="website.layout">
             <t t-set="title">Partner Detail Page</t>
             <div class="flex-container">
-
                 <div class="partner_details" style="width: 80%; float:right">
                     <h2 style="text-align:left">
                         <u>
@@ -16,41 +15,79 @@
                     <br>
                         <t t-esc="partner.street"/>
                     </br>
-
-                        <div class="partner_details" style="width: 80%; float:right">
-                            <h3>
-                                <u>Team Leader:</u>
-                            </h3>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>TL Name</th>
-                                        <th>Sr no</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr t-foreach="partners" t-as="partner">
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            <t t-esc="partner.team_ids.name" />
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-
-
-
                 </div>
-                  <div class="partner_description" style="width: 20%; float:left">
+
+                <div class="partner_description" style="width: 20%; float:left">
                     <span t-field="partner.image_1920" t-options='{"widget":"image"}'/>
                 </div>
+            </div>
+            <div>
+                <t t-if="partner.team_leader">
+                    <div class="contact_member_tbl">
+                        <label>Team leaders:</label>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="partner.team_ids" t-as="members">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="members.id"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="members.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="members.phone"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="members.email"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
 
             </div>
+
         </t>
+
     </template>
+
+     <template id="create_new_contact" name="create contact page">
+        <t t-call="website.layout">
+            <t t-set="title">create contact Page</t>
+                 <form class="col-form-label" role="form" action="/partner/list" type="post" >
+                        <div class="form">
+                            <div class="form-group col-xl-3">
+                                <label class="col-form-label" for="name">Name</label>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name"/>
+                            </div>
+                            <div class="form-group col-xl-3">
+                                <label class="col-form-label" for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-control"
+                                       placeholder="abc@gmail.com"/>
+                            </div>
+                             <div class="form-group col-xl-3">
+                                <label class="col-form-label" for="phone">Phone</label>
+                                <input type="text" id="phone" name="phone" class="form-control"/>
+                            </div>
+                            <div class="oe_login_buttons" style="margin-left: 18px">
+                                <button type="submit" name="csrf_token" t-att-value="request.csrf_token()"
+                                        class="btn btn-success">Submit
+                                </button>
+                            </div>
+                        </div>
+                 </form>
+        </t>
+     </template>
 </odoo>

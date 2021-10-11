@@ -7,13 +7,30 @@ from odoo import fields, models, api
 
 class Controller(http.Controller):
     @http.route("/partner/list", type="http", website=True, auth="public")
-    def demo_page(self):
+    def demo_page(self, **kw):
         partners = request.env["res.partner"].sudo().search([])
+        if kw:
+            print("kw==================", kw)
+            vals = {
+                'name': kw.get('name'),
+                'email': kw.get('email'),
+                'phone':kw.get('phone'),
+
+            }
+            print("=============vals==============", vals)
+            request.env["res.partner"].sudo().create(vals)
         return request.render("template_session.demo_page", {"partners": partners})
 
-class PartnerList(http.Controller):
+
     @http.route("/partner/details/<model('res.partner'):partner>", type="http", website=True, auth="public")
     def form_list(self, partner, **kw):
         print("=======partner====", partner)
         return request.render("template_session.partner_description_page", {"partner":partner})
+
+    @http.route("/contact/create_new_contact", type="http", website=True, auth="public")
+    def create_new_contact(self):
+        return request.render("template_session.create_new_contact")
+
+
+
 

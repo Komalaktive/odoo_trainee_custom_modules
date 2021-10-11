@@ -6,7 +6,11 @@ class PartnerTeam(models.Model):
    _description="team member"
 
    name = fields.Char(related="member_id.name", string="Name")
+   email = fields.Char(related="member_id.email", string="Email")
+   phone = fields.Char(related="member_id.phone", string="Phone")
+   address = fields.Char(related="member_id.contact_address", string="Address")
    partner_id = fields.Many2one("res.partner", string="Contact")
+
    member_id = fields.Many2one("res.partner", domain="[('team_leader', '=', False)]", string="Member")
 
 
