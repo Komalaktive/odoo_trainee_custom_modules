@@ -18,7 +18,7 @@
     # always loaded
     "data": [
         "security/ir.model.access.csv",
-        "views/views.xml",
+        "views/customer_document_views.xml",
     ],
     # only loaded in demonstration mode
     "installable": True,

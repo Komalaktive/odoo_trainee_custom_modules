@@ -2,7 +2,7 @@ from odoo import http
 from odoo.http import request, route
 
 class ReferalApplication(http.Controller):
-    @http.route("/referral_program", type="http", website=True, auth="user")
+    @route("/referral_program", type="http", website=True, auth="public")
     def referral_program(self):
         reference_id = request.env["hr.employee"].sudo().search([])
         degree_id = request.env["hr.recruitment.degree"].sudo().search([])
@@ -14,7 +14,7 @@ class ReferalApplication(http.Controller):
 
         }
         return request.render("hr_referral_application.referral_program_template",vals)
-    @http.route("/submit_referral_program", type="http", website=True, auth="public")
+    @route("/submit_referral_program", type="http", website=True, auth="public")
     def submit_referral_program(self, **kw):
         if kw:
             print("kw==================",kw)

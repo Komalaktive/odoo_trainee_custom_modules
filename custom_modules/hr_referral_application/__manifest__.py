@@ -1,15 +1,16 @@
 {
-    "name": "Hr Application",
+    "name": "Hr Referral Application",
     "summary": """
-       Practical Task""",
-    "description": """ Practical Task """,
+       This is hr referral application form""",
+    "description": """ This is hr referral application form """,
     "author": "Komal Jimudiya",
-    "website": "http://www.yourcompany.com",
-    "category": "Business",
+    "website": "https://www.aktivsoftware.com/",
+    "category": "Hr",
     "version": "14.0.1.0.0",
-    "depends": ["base", "hr_recruitment", "website"],
+    "depends": ["hr_recruitment", "website"],
     "data": [
         "security/ir.model.access.csv",
+        "data/ir_sequence_data.xml",
         "data/hr_referral_menu.xml",
         "views/hr_referral_application.xml",
         "views/hr_referral_application_template.xml",

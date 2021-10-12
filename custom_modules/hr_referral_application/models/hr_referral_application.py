@@ -1,12 +1,17 @@
 from odoo import api, fields, models
 
 
-class Practical(models.Model):
+class HrReferralApplication(models.Model):
     _name = "hr.referral.application"
     _description = "Practical Task"
 
-    name = fields.Char(string="Name", required="True")
+    name = fields.Char("Name", required="True")
     email = fields.Char(string="Email")
+    sequence = fields.Integer(
+        "Sequence",
+        default=1,
+        help="Gives the sequence order when displaying a product list",
+    )
     state = fields.Selection(
         string="Status",
         default="draft",
@@ -22,6 +27,12 @@ class Practical(models.Model):
     ex_salary = fields.Monetary(string="Expected Salary", store=True, copy=False)
     summary = fields.Text(string="Summary", copy=False)
     joining_date = fields.Date(string="Expected joining Date", copy=False)
+
+
+    @api.model
+    def create(self, vals):
+        vals['name'] = self.env['ir.sequence'].next_by_code('hr.referral.application') or ('New')
+        return super(HrReferralApplication, self).create(vals)
 
     def action_approved(self):
         for rec in self:

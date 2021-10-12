@@ -63,31 +63,41 @@
 
     </template>
 
-     <template id="create_new_contact" name="create contact page">
+    <template id="create_new_contact" name="create contact page">
         <t t-call="website.layout">
             <t t-set="title">create contact Page</t>
-                 <form class="col-form-label" role="form" action="/partner/list" type="post" >
-                        <div class="form">
-                            <div class="form-group col-xl-3">
-                                <label class="col-form-label" for="name">Name</label>
-                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name"/>
-                            </div>
-                            <div class="form-group col-xl-3">
-                                <label class="col-form-label" for="email">Email</label>
-                                <input type="email" id="email" name="email" class="form-control"
-                                       placeholder="abc@gmail.com"/>
-                            </div>
-                             <div class="form-group col-xl-3">
-                                <label class="col-form-label" for="phone">Phone</label>
-                                <input type="text" id="phone" name="phone" class="form-control"/>
-                            </div>
-                            <div class="oe_login_buttons" style="margin-left: 18px">
-                                <button type="submit" name="csrf_token" t-att-value="request.csrf_token()"
-                                        class="btn btn-success">Submit
-                                </button>
-                            </div>
-                        </div>
-                 </form>
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <h1 class="text-left">Create Contact</h1>
+            <form class="col-form-label" role="form" action="/partner/list" type="post">
+                <div class="form">
+                    <div class="form-group col-xl-3">
+                        <label class="col-form-label" for="name">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name"/>
+                    </div>
+                    <div class="form-group col-xl-3">
+                        <label class="col-form-label" for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control"
+                               placeholder="abc@gmail.com"/>
+                    </div>
+                    <div class="form-group col-xl-3">
+                        <label class="col-form-label" for="phone">Phone</label>
+                        <input type="text" id="phone" name="phone" class="form-control"/>
+                    </div>
+                    <div class="form-group col-xl-3">
+                        <label class="col-form-label" for="street">Address</label>
+                        <textarea class="form-control" id="street" name="street" placeholder="type address..."/>
+                    </div>
+                    <div class="form-group col-xl-3">
+                        <label class="col-form-label" for="image_1920">upload image</label>
+                        <input type="file" id="image_1920" name="image_1920"/>
+                    </div>
+                    <div class="oe_login_buttons" style="margin-left: 18px">
+                        <button type="submit" name="csrf_token" t-att-value="request.csrf_token()"
+                                class="btn btn-success">Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
         </t>
-     </template>
+    </template>
 </odoo>
