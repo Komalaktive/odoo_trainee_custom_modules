@@ -9,7 +9,7 @@
     "website": "http://www.yourcompany.com",
     "category": "Uncategorized",
     "version": "14.0.1.0.0",
-    "depends": ["mail","hr","sale_management"],
+    "depends": ["mail","hr","sale_management","portal","website"],
     "data": [
         "security/ir.model.access.csv",
         # "wizard/student_registration_wizard.xml",
@@ -19,7 +19,8 @@
         "views/student_views.xml",
         "views/teacher_views.xml",
         "views/res_config_setting.xml",
-        "views/res_partner_button_inherit_views.xml"
+        "views/res_partner_button_inherit_views.xml",
+        "views/school_portal_template.xml",
     ],
     "demo": [],
     "installable": True,
