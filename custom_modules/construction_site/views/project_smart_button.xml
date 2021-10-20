@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_purchase_add_button_property_form" model="ir.ui.view">
+        <field name="name">project.task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+
+                 <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+
+                        <button class="oe_stat_button" name="%(construction_site_action)d"
+                                    string="Construction project" type="action" icon="fa-edit"/>
+
+                </xpath>
+
+        </field>
+    </record>
+</odoo>

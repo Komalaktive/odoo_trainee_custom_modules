@@ -10,7 +10,5 @@
     "data": [
         "views/sale_add_field_views.xml",
     ],
-    "demo": [
-        
-    ],
+    "demo": [],
 }

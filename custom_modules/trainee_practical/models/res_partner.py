@@ -12,11 +12,9 @@ class SearchModify(models.Model):
         return result
 
     @api.model
-    def _name_search(self, name, args=None, operator='ilike', limit=100):
+    def _name_search(self, name, args=None, operator="ilike", limit=100):
         args = args or []
         domain = []
         if name:
             domain = ["|", ("name", operator, name), ("city", operator, name)]
         return self._search(args + domain, limit=limit)
-
-

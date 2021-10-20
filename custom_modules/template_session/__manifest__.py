@@ -14,7 +14,7 @@
         "views/assets.xml",
         "views/inherit_template.xml",
         "views/partner_description_page.xml",
-        "views/res_partner_table_views.xml"
+        "views/res_partner_table_views.xml",
     ],
     "auto_install": False,
     "installable": True,

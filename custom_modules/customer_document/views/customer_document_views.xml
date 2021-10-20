@@ -11,7 +11,7 @@
                     <field name="birth_date"/>
                     <field name="expiry_date"/>
                     <field name="age"/>
-                    <field name="customer_name"/>
+                    <field name="customer_name_id"/>
                 </tree>
             </field>
         </record>
@@ -21,7 +21,7 @@
             <field name="name">customer document list</field>
             <field name="model">customer.document</field>
             <field name="arch" type="xml">
-                <form>
+                <form string="Customer Document">
                     <sheet>
                         <group>
                             <group>
@@ -32,7 +32,7 @@
 
                             <group>
                                 <field name="age"/>
-                                <field name="customer_name"/>
+                                <field name="customer_name_id" widget="many2one"/>
                             </group>
 
                         </group>

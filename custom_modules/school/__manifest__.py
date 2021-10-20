@@ -9,7 +9,7 @@
     "website": "http://www.yourcompany.com",
     "category": "Uncategorized",
     "version": "14.0.1.0.0",
-    "depends": ["mail","hr","sale_management","portal","website"],
+    "depends": ["mail", "hr", "sale_management", "portal", "website"],
     "data": [
         "security/ir.model.access.csv",
         # "wizard/student_registration_wizard.xml",

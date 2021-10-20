@@ -28,10 +28,11 @@ class HrReferralApplication(models.Model):
     summary = fields.Text(string="Summary", copy=False)
     joining_date = fields.Date(string="Expected joining Date", copy=False)
 
-
     @api.model
     def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('hr.referral.application') or ('New')
+        vals["name"] = self.env["ir.sequence"].next_by_code(
+            "hr.referral.application"
+        ) or ("New")
         return super(HrReferralApplication, self).create(vals)
 
     def action_approved(self):

@@ -7,7 +7,6 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-
 class Student(models.Model):
     _name = "student.student"
     _inherit = ["mail.thread", "mail.activity.mixin"]
@@ -42,7 +41,9 @@ class Student(models.Model):
 
     def action_confirm(self):
         self.state = "confirm"
-        import pdb;pdb.set_trace()
+        import pdb
+
+        pdb.set_trace()
         _logger.info("THIS IS INFO LOGGER")
         _logger.warning("THIS IS warning")
         _logger.error("THIS IS error")
