@@ -14,7 +14,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/customer_document_views.xml",
-        "views/customer_document_templates.xml",
+        # "views/customer_document_templates.xml",
     ],
     "installable": True,
     "auto_install": False,

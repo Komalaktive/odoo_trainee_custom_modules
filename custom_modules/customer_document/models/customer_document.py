@@ -26,28 +26,27 @@ class CustomerDocument(models.Model):
             ("refused", "Refused"),
         ],
     )
+    document_count = fields.Integer(string="Document count", compute="compute_total_document_count")
 
     @api.onchange("expiry_date")
     def _compute_date(self):
+        print("===================================expireddddddddddddd")
         if self.expiry_date == date.today():
             self.write({"state": "expired"})
 
-    @api.depends("age")
-    def _compute_age(self):
-        today = date.today()
-        age = (
-            today.year
-            - birth_date.year
-            - ((today.month, today.day) < (birth_date.month, birth_date.day))
-        )
+    def action_draft(self):
+        self.state = "draft"
 
-    # calculate age
-    # def calculate_age(self):
-    #     for record in self:
-    #         if record.birth_date:
-    #             age = date.today().year - record.birth_date.year
-    #             record.age = str(age) + " years"
-    #             if age < 18:
-    #                 raise UserError("The customer age can not be below 18 ")
-    #             else:
-    #                 raise UserError("Please select the date of birth ")
+    def action_approved(self):
+        self.state = "approved"
+
+    def action_expired(self):
+        self.state = "expired"
+
+    def action_refused(self):
+        self.state = "refused"
+
+    def compute_total_document_count(self):
+        print("============================document=======================")
+        for document in self:
+            document.document_count = self.env["customer.document"].search_count([])
