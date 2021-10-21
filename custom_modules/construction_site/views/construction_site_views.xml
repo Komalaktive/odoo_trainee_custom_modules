@@ -24,23 +24,30 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_running" string="Running" class="oe_highlight" type="object" states="running"/>
-
-                    <button name="action_stopped" string="Stopped" class="oe_highlight"
-                            type="object"/>
-                    <button name="action_draft" string="Draft" class="oe_highlight"
-                            type="object"/>
-                    <button name="action_inclosing" string="In closing" class="oe_highlight"
-                            type="object"/>
-                    <button name="action_closed" string="Closed" class="oe_highlight"
-                            type="object"/>
-                    <field name="state" widget="statusbar" options="{'clickable':1}"
-                           statusbar_visible="draft,running,stopped,inclosing,closed"/>
+                    <button id="button_run" name="action_run" string="Running" type="object" class="btn-primary"
+                            states="draft"/>
+                    <button id="button_stop" name="action_stop" string="Stop" type="object" class="btn-primary"
+                            states="running"/>
+                    <button id="button_in_close" name="action_in_close" string="In Close" type="object"
+                            class="btn-primary" states="stop"/>
+                    <button id="button_close" name="action_close" string="Close" type="object" class="btn-primary"
+                            states="in_closing"/>
+                    <button id="button_draft" name="action_draft" string="Draft" type="object" class="btn-primary"
+                            states="close"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,close,running,in_closing,stop"/>
                 </header>
                 <sheet>
-                    <div class="oe_title">
+                    <div class="oe_edit_only">
+                        <div class="oe_title">
+                            <h3>
+                                <field name="name" placeholder="Name"/>
+                            </h3>
+                        </div>
+
+                    </div>
+                    <div class="oe_read_only">
                         <h1>
-                            <field name="name"/>
+                            <field name="display_name"/>
                         </h1>
                     </div>
                     <group>
@@ -52,6 +59,7 @@
                         <group>
                             <field name="scheduled_date"/>
                             <field name="reference"/>
+                            <field name="general_contractor_purchase_order_id"/>
                         </group>
                     </group>
                 </sheet>
@@ -67,6 +75,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <!--    explicitely menuitem defination-->
     <menuitem id="construction_site_root_menu" name="Construction Site "/>
     <menuitem name="construction site application" id="construction_site_app_menu" action="construction_site_action"
               parent="construction_site_root_menu"/>

@@ -9,7 +9,7 @@ class CustomerDocument(models.Model):
     _description = "This is customer document form"
     _rec_name = "name"
 
-    name = fields.Char(string="Name")
+    name = fields.Char(string="Name", reqired=True)
     birth_date = fields.Date(string="Birth Date")
     expiry_date = fields.Date(string="Expiry Date")
     age = fields.Integer(string="Age", readonly="1")
@@ -47,6 +47,6 @@ class CustomerDocument(models.Model):
         self.state = "refused"
 
     def compute_total_document_count(self):
-        print("============================document=======================")
+        print("============================total document=======================")
         for document in self:
             document.document_count = self.env["customer.document"].search_count([])

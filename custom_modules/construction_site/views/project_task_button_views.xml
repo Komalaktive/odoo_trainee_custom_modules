@@ -9,10 +9,11 @@
                  <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
 
                         <button class="oe_stat_button" name="%(construction_site_action)d"
-                                    string="Construction project" type="action" icon="fa-edit"/>
+                                    string="Construction project" type="action" icon="fa-wrench"/>
 
                 </xpath>
 
         </field>
     </record>
 </odoo>
+

@@ -3,7 +3,7 @@
     "name": "Construction Site",
     "summary": """
        This is Construction site module""",
-    "description": """ This is Construction site module
+    "description": """ This module are used to create construction site
     """,
     "author": "Komal Jimudiya",
     "website": "http://www.aktivesoftware.com",
@@ -21,9 +21,9 @@
     # always loaded
     "data": [
         "security/ir.model.access.csv",
-        "views/sale_smart_button.xml",
-        "views/purchase_smart_button.xml",
-        "views/project_smart_button.xml",
+        "views/sale_order_button_views.xml",
+        "views/purchase_order_button_views.xml",
+        "views/project_task_button_views.xml",
         "views/construction_site_views.xml",
     ],
     "auto_install": False,

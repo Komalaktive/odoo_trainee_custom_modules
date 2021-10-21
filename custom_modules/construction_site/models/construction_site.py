@@ -4,8 +4,9 @@ from odoo import models, fields
 class constructionSite(models.Model):
     _name = "construction.site"
     _description = "Construction Site"
+    _rec_name = "display_name"
 
-    name = fields.Char(string="Name")
+    name = fields.Char(string="Name", required="True")
     reference = fields.Char(string="Construction Site Code")
     scheduled_date = fields.Datetime(string="Material Requirement")
     state = fields.Selection(
@@ -16,9 +17,9 @@ class constructionSite(models.Model):
         selection=[
             ("draft", "Draft"),
             ("running", "Running"),
-            ("stopped", "Stopped"),
-            ("inclosing", "In Clossing"),
-            ("closed", "Closed"),
+            ("stop", "Stopped"),
+            ("in_closing", "In Clossing"),
+            ("close", "Closed"),
         ],
     )
 
@@ -29,6 +30,9 @@ class constructionSite(models.Model):
         "res.partner", string="Onsite Responsible "
     )
     delivery_address = fields.Many2one("res.partner", string="Delivery Address")
+    display_name = fields.Char(
+        string="Display Name", compute="_compute_display_name", store="True"
+    )
     product_template_id = fields.Many2one("product.template")
     stock_warehouse_id = fields.Many2one("stock.warehouse")
     project_id = fields.Many2one("project.project")
@@ -40,41 +44,23 @@ class constructionSite(models.Model):
     )
     general_contractor_purchase_order_id = fields.Many2one("purchase.order")
 
-    # def name_get(self):
-    #     print("==================xcbjbcm",self)
-    # result = []
-    # for combined in self:
-    #     display_name = f"[{combined.reference}] {combined.name}"
-    #     result.append((combined.id, display_name))
-    # return result
+    @api.depends("reference", "name")
+    def _compute_display_name(self):
+        if self.reference and self.name:
+            for con in self:
+                con.display_name = f"[{con.reference}] {con.name}"
 
-    # def name_get(self):
-    #     print("+++++++++++++++++++++++++++askjdhbasjdfb",self)
-    #     result = []
-    #     for rec in self:
-    #         demo = '[' + rec.reference + ']' + ' ' + rec.name
-    #         result.append((rec.id, demo))
-    #     return result
+    def action_run(self):
+        self.state = "running"
 
-    def name_get(self):
-        result = []
-        for con in self:
-            name = f"[{con.reference}] {con.name}"
-            result.append((con.id, name))
-        return result
+    def action_stop(self):
+        self.state = "stop"
+
+    def action_in_close(self):
+        self.state = "in_closing"
+
+    def action_close(self):
+        self.state = "close"
 
     def action_draft(self):
         self.state = "draft"
-
-    def action_running(self):
-        self.state = "running"
-
-    def action_stopped(self):
-        self.state = "stopped"
-
-    def action_inclosing(self):
-        self.state = "inclosing"
-
-    def action_closed(self):
-        self.state = "closed"
-

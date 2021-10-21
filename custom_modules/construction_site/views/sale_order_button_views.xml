@@ -8,7 +8,7 @@
              <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
 
                     <button class="oe_stat_button" name="%(construction_site_action)d"
-                                string="Construction site" type="action" icon="fa-edit"/>
+                                string="Construction site" type="action" icon="fa-wrench"/>
 
             </xpath>
         </field>
