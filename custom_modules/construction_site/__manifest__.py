@@ -6,7 +6,7 @@
     "description": """ This module are used to create construction site
     """,
     "author": "Komal Jimudiya",
-    "website": "http://www.aktivesoftware.com",
+    "website": "http://www.aktivsoftware.com",
     "category": "construction",
     "version": "14.0.1.0.0",
     "depends": [
@@ -17,14 +17,15 @@
         "purchase",
         "analytic",
         "account",
+        "project",
     ],
     # always loaded
     "data": [
         "security/ir.model.access.csv",
-        "views/sale_order_button_views.xml",
+        "views/construction_site_views.xml",
         "views/purchase_order_button_views.xml",
         "views/project_task_button_views.xml",
-        "views/construction_site_views.xml",
+        "views/sale_order_button_views.xml",
     ],
     "auto_install": False,
     "installable": True,

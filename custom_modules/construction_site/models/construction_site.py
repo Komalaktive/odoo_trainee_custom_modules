@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import api, fields, models
 
 
 class constructionSite(models.Model):
@@ -37,11 +37,11 @@ class constructionSite(models.Model):
     stock_warehouse_id = fields.Many2one("stock.warehouse")
     project_id = fields.Many2one("project.project")
     purchase_order_ids = fields.Many2many("purchase.order", string="purchase")
-    analytical_account_id = fields.Many2one("analytical.account")
+    # analytical_account_id = fields.Many2one("analytical.account")
     sale_order_id = fields.Many2one("sale.order")
-    asset_id = fields.Many2many(
-        "account.asset", "asset_id", "ab_id", "purchase_id", string="Asset"
-    )
+    # asset_id = fields.Many2many(
+    #     "account.asset", "asset_id", "ab_id", "purchase_id", string="Asset"
+    # )
     general_contractor_purchase_order_id = fields.Many2one("purchase.order")
 
     @api.depends("reference", "name")

@@ -26,7 +26,9 @@ class CustomerDocument(models.Model):
             ("refused", "Refused"),
         ],
     )
-    document_count = fields.Integer(string="Document count", compute="compute_total_document_count")
+    document_count = fields.Integer(
+        string="Document count", compute="compute_total_document_count"
+    )
 
     @api.onchange("expiry_date")
     def _compute_date(self):
