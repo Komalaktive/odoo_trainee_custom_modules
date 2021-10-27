@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="student_information.list">
+      <field name="name">student_information list</field>
+      <field name="model">student_information.student_information</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="student_information.action_window">
+      <field name="name">student_information window</field>
+      <field name="res_model">student_information.student_information</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="student_information.action_server">
+      <field name="name">student_information server</field>
+      <field name="model_id" ref="model_student_information_student_information"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="student_information" id="student_information.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="student_information.menu_1" parent="student_information.menu_root"/>
+    <menuitem name="Menu 2" id="student_information.menu_2" parent="student_information.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="student_information.menu_1_list" parent="student_information.menu_1"
+              action="student_information.action_window"/>
+    <menuitem name="Server to list" id="student_information" parent="student_information.menu_2"
+              action="student_information.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- explicit list view definition -->
+
+    <record id="bulk_products_list_view" model="ir.ui.view">
+        <field name="name">bulk_products list</field>
+        <field name="model">bulk.products</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="bulk_products_form_view" model="ir.ui.view">
+        <field name="name">bulk_products list</field>
+        <field name="model">bulk.products</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="email" widget="email"/>
+                        </group>
+                        <group>
+                            <field name="master_product_id"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Bulk Products">
+                            <group>
+                                <field name="bulk_product_template_ids" widget="one2many">
+                                    <tree editable="bottom">
+                                        <field name="bulk_product_field_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record id="bulk_products_action_window" model="ir.actions.act_window">
+        <field name="name">bulk_products window</field>
+        <field name="res_model">bulk.products</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+
+    <menuitem id="bulk_products_root_menu" name="Bulk products"/>
+    <menuitem name="Bulk Products" id="bulk_root_menu" action="bulk_products_action_window"
+              parent="sale.menu_sale_config"/>
+
+</odoo>
