@@ -34,7 +34,7 @@
                             states="in_closing"/>
                     <button id="button_draft" name="action_draft" string="Draft" type="object" class="btn-primary"
                             states="close"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,close,running,in_closing,stop"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,close,running,in_closing,stop" options="{'clickable':1}"/>
                 </header>
                 <sheet>
                     <div class="oe_edit_only">
@@ -63,6 +63,11 @@
                         </group>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="activity_ids"/>
+                </div>
             </form>
 
         </field>

@@ -1,24 +1,103 @@
 <odoo>
     <data>
-<!--
-        <template id="listing">
-          <ul>
-            <li t-foreach="objects" t-as="object">
-              <a t-attf-href="#{ root }/objects/#{ object.id }">
-                <t t-esc="object.display_name"/>
-              </a>
-            </li>
-          </ul>
-        </template>
-        <template id="object">
-          <h1><t t-esc="object.display_name"/></h1>
-          <dl>
-            <t t-foreach="object._fields" t-as="field">
-              <dt><t t-esc="field"/></dt>
-              <dd><t t-esc="object[field]"/></dd>
+
+        <template id="customer_document_detail_form">
+            <t t-call="website.layout">
+                <h1>Customer Document</h1>
+                <a href='/customer_document_form' class="btn btn-primary m-2">Insert New Record</a>
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Birth Date</th>
+                            <th>Expiry Date</th>
+                            <th>Age</th>
+                            <th>Customer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="customer_ids" t-as="customer">
+                            <td>
+                                <span t-esc="customer.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="customer.birth_date"/>
+                            </td>
+                            <td>
+                                <span t-esc="customer.expiry_date"/>
+                            </td>
+                            <td>
+                                <span t-esc="customer.age"/>
+                            </td>
+                            <td>
+                                <span t-esc="customer.customer_name_id.name"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </t>
-          </dl>
         </template>
--->
+
+
+        <template id="customer_document_create_page">
+            <t t-call="website.layout">
+                <h1 class="text-center"><u>Insert new record</u></h1>
+                <form action="insert_customer_new_record">
+                    <div class="container">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" id="name" name="name" class="form-control"
+                                               placeholder="Enter Name" required="required"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="customer_name_id" class="form-label">Customer Name</label>
+                                        <br></br>
+                                        <select name="customer_name_id" id="customer_name_id" class="form-control mb-3"
+                                                required="required">
+                                            <option>Please Select</option>
+                                            <t t-foreach="customer_name_id" t-as="partner">
+                                                <option t-esc="partner.name"></option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Age</label>
+                                        <input type="text" id="age" name="age" class="form-control"
+                                               placeholder="Enter Age" required="required"/>
+                                    </div>
+
+                                    <div class="oe_login_buttons">
+                                        <button type="submit" name="csrf_token" t-att-value="request.csrf_token()"
+                                                class="btn btn-primary">Submit
+                                        </button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </t>
+        </template>
+
+
+        <template id="thank_you_template_customer_document" name="Thank you">
+            <t t-call="website.layout">
+                <div class="clearfix">
+                    <div class="container">
+                        <div class="alert alert-success text-center" role="status">
+                            Thank You
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
     </data>
 </odoo>

@@ -18,6 +18,7 @@
         "analytic",
         "account",
         "project",
+        "mail",
     ],
     # always loaded
     "data": [

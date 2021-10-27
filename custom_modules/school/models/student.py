@@ -11,7 +11,7 @@ class Student(models.Model):
     _name = "student.student"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Student Management"
-    _rac_name = "roll_no"
+    _rec_name = "roll_no"
 
     name = fields.Char(string="Student Name")
     sequence = fields.Integer(

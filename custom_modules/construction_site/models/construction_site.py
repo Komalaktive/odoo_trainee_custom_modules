@@ -3,11 +3,12 @@ from odoo import api, fields, models
 
 class constructionSite(models.Model):
     _name = "construction.site"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Construction Site"
     _rec_name = "display_name"
 
     name = fields.Char(string="Name", required="True")
-    reference = fields.Char(string="Construction Site Code")
+    reference = fields.Char(string="Construction Site Code", tracking=True)
     scheduled_date = fields.Datetime(string="Material Requirement")
     state = fields.Selection(
         string="Status",
@@ -64,3 +65,5 @@ class constructionSite(models.Model):
 
     def action_draft(self):
         self.state = "draft"
+
+

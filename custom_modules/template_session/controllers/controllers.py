@@ -40,5 +40,11 @@ class Controller(http.Controller):
         auth="public",
         csrf=False,
     )
-    def create_new_contact(self):
-        return request.render("template_session.create_new_contact")
+    def create_new_contact(self, **kw):
+        states = request.env["res.country.state"].sudo().search([])
+        countries = request.env["res.country"].sudo().search([])
+        return request.render("template_session.create_new_contact",{
+                "countries": countries,
+                "states": states,
+            },
+        )

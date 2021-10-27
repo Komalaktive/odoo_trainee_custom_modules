@@ -9,6 +9,7 @@
     "version": "14.0.1.0.0",
     "depends": ["hr_recruitment", "website"],
     "data": [
+        "security/hr_referral_security.xml",
         "security/ir.model.access.csv",
         "data/ir_sequence_data.xml",
         "data/hr_referral_menu.xml",

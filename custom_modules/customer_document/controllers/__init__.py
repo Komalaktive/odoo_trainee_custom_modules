@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-# from . import controllers
+from . import customer_document_controllers

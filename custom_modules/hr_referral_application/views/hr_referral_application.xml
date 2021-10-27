@@ -24,7 +24,7 @@
             <form>
                 <header>
                     <button name="action_approved" string="Approved" class="oe_highlight"
-                            type="object" states="draft"/>
+                            type="object" states="draft" groups="hr_referral_application.allow_to_approve_button"/>
                     <button string="Create Application" class="oe_highlight" states="approved"/>
                     <button id="button_done" name="action_draft" string="Draft" class="border border-primary"
                             type="object"/>

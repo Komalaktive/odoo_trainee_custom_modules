@@ -13,7 +13,7 @@
     "data": [
         # 'security/ir.model.access.csv',
         "views/website_portal_menu.xml",
-        # 'views/templates.xml',
+        # 'views/bulk_products_templates.xml',
     ],
     # only loaded in demonstration mode
     "demo": [
