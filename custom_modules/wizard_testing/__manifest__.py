@@ -8,7 +8,7 @@
     "website": "http://www.yourcompany.com",
     "category": "wizard",
     "version": "14.0.1.0.0",
-    "depends": ["base", "mail"],
+    "depends": ["base", "mail", "sale_management"],
     "data": [
         "security/ir.model.access.csv",
         "wizard/create_wizard.xml",

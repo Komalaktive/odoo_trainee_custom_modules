@@ -1,7 +1,4 @@
-from odoo.addons.portal.controllers.portal import (
-    CustomerPortal,
-    pager as portal_pager,
-    get_records_pager,
+from odoo.addons.portal.controllers.portal import (CustomerPortal,pager as portal_pager,get_records_pager,
 )
 from odoo import fields, http
 from odoo.exceptions import AccessError, MissingError
@@ -16,7 +13,7 @@ class CustomerPortal(CustomerPortal):
         website=True,
     )
     def portal_my_records(
-        self, page=1, date_begin=None, date_end=None, sortby=None, **kw
+            self, page=1, date_begin=None, date_end=None, sortby=None, **kw
     ):
         print("\n\n\n===========IN PYTHON CONTROLLER")
         data = {}

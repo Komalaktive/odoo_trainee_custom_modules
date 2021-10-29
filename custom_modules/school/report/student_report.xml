@@ -4,9 +4,9 @@
     <template id="school_report_page">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-               <t t-call="web.external_layout">
-                <div class="page">
-<!--                        <div class="oe_structure"/>-->
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!--                        <div class="oe_structure"/>-->
                         <div class="row">
                             <div class="col-xs-2" style="margin:100px;">
                             </div>
@@ -51,9 +51,9 @@
                                                             <p style="padding-left:10px;"
                                                                t-field="o.roll_no"/>
                                                             <p style="padding-left:10px;"
-                                                                t-field="o.address"/>
+                                                               t-field="o.address"/>
                                                             <p style="padding-left:10px;"
-                                                                t-field="o.field_with_url"/>
+                                                               t-field="o.field_with_url"/>
                                                         </td>
 
                                                     </tr>
@@ -90,10 +90,6 @@
                 </t>
             </t>
         </t>
-
-
-        
-                        
     </template>
 
 

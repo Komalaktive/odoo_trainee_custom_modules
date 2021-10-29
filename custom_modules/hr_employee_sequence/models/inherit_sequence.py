@@ -15,3 +15,8 @@ class Test(models.Model):
 
     def name_wizard(self):
         pass
+
+    def test_wizard(self):
+        context = self._context
+        emp = self.env[context['active_model']].browse(context['active_id'])
+        emp.mobile_phone = self.name

@@ -12,10 +12,10 @@
                 </sheet>
                 <footer>
                     <button string="WIZARD CREATE" name="cancel_object"
-                         type="object"/>
+                            type="object"/>
                 </footer>
             </form>
-           
+
         </field>
     </record>
 
@@ -25,4 +25,15 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
+
+    <record id="xx" model="ir.actions.act_window">
+            <field name="name">Update Task</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">create.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <!-- TODO: check if we need this -->
+            <field name="binding_model_id" ref="sale.model_sale_order" />
+            <field name="binding_view_types">list</field>
+        </record>
 </odoo>

@@ -4,7 +4,7 @@ from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 import logging
 
-_logger = logging.getLogger(__name__)
+# _logger = logging.getLogger(__name__)
 
 
 class Student(models.Model):
@@ -14,6 +14,8 @@ class Student(models.Model):
     _rec_name = "roll_no"
 
     name = fields.Char(string="Student Name")
+    # user_id = fields.Many2one("res.partner", string="Partner")
+    email = fields.Char(string="Email")
     sequence = fields.Integer(
         "Sequence",
         default=1,
@@ -43,16 +45,25 @@ class Student(models.Model):
         self.state = "confirm"
         import pdb
 
-        pdb.set_trace()
-        _logger.info("THIS IS INFO LOGGER")
-        _logger.warning("THIS IS warning")
-        _logger.error("THIS IS error")
+        # pdb.set_trace()
+        # _logger.info("THIS IS INFO LOGGER")
+        # _logger.warning("THIS IS warning")
+        # _logger.error("THIS IS error")
 
     def action_draft(self):
         self.state = "draft"
 
     def action_done(self):
         self.state = "done"
+
+    def action_send_report(self):
+        print("Sending email...")
+        template = self.env.ref('school.school_mail_template')
+        # print("\n\n\n\n\n template",template_id)
+        # template = self.env['mail.template'].browse(template_id)
+        # print("==============template============",template)
+        template.send_mail(self.id)
+
 
     _sql_constraints = [
         (

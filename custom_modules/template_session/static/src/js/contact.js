@@ -22,8 +22,41 @@ odoo.define("contacts", function (require) {
                 }
         });
 
+// For changing image when input is given
+        $("#partner_image_input").on('change', function(e)){
+            console.log("this.................",this)
+            console.log("$(this).........",$(this))
+            var partner_img = $('#partner_image');
+            var default_img = "/template_session/static/image/placeholder.png";
+            var input = this
+            if (input.files && input.files[0]) {
+                $("delete_image").val("False");
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    partner_img.attr("src", e.target.result)
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                    }
+            }
+            else
+            {
+                if($("#delete_image").val() == "False")
+                {
+                    console.log("hello")
+                    var partner_id = $("#partner_id").val()
+                    if (partner_id)
+                    {
+                        default_image = "/web/image/res.partner/" + partner_id + "/image_1920";
+                    }
+                      partner_img.attr("src", default_image)
 
-        $("")
+                }
+            });
+            $(".delete_image").on('click', function(e){
+              $("#partner_image_input").val("");
+              $("#delete_image").val("True");
+              $("#partner_image_input").trigger("change");
+        });
 
 
 

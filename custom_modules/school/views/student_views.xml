@@ -11,6 +11,7 @@
                 <field name="address" string="Address"/>
                 <field name="field_with_url" widget="url"/>
                 <field name="school_result"/>
+                <field name="email"/>
 
             </tree>
         </field>
@@ -28,6 +29,7 @@
                             type="object"/>
                     <button id="button_cancel" name="action_draft" string="Cancel" states="create,received,done"
                             type="object"/>
+                    <button id="action_send_report" name="action_send_report" type="object" string="Send By Email" class="oe_highlight"/>
                     <field name="state" widget="statusbar" options="{'clickable':0}"
                            statusbar_visible="draft,confirm,done"/>
                 </header>
@@ -54,6 +56,9 @@
                             <field name="roll_no" string="Roll No"/>
                             <field name="address" string="Address"/>
                             <field name="school_result"/>
+                            <field name="email"/>
+<!--                            <field name="user_id"/>-->
+
                         </group>
                     </group>
                     <notebook>
@@ -88,7 +93,7 @@
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_global_click">
                             <div class="oe_kanban_details">
-                                 <strong class="o_kanban_record_title">
+                                <strong class="o_kanban_record_title">
                                     <field name="name"/>
                                 </strong>
                                 <div>
@@ -98,7 +103,7 @@
                                         </span>
                                     </strong>
                                 </div>
-                                 <div>
+                                <div>
                                     <strong>
                                         <span>
                                             <field name="roll_no"/>
