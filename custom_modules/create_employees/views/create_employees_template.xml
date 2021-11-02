@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="create_employees_template" name="Create Employees">
+            <t t-call="website.layout">
+                <h1 class="text-center">Employee Register</h1>
+                <div class='oe_structure'>
+                    <div class="container">
+                        <form role='form' action='/submit_create_employees' type='post'>
+                            <div class="form">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                           placeholder="Enter Name"/>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control"
+                                           placeholder="myname@example.com"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="birth_date">Birth Date</label>
+                                    <input type="date" id="birth_date" name="birth_date" class="form-control"/>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="street">Street</label>
+                                    <input type="text" id="street" name="street" class="form-control"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="job_position_id">State</label>
+                                    <br></br>
+                                    <select name='state_id' class="form-select form-select-lg mb-3">
+                                        <t t-foreach="state_id" t-as="state">
+                                            <option t-esc="state.name"></option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="country_id">Country</label>
+                                    <br></br>
+                                    <select name='country_id' class="form-select form-select-lg mb-3">
+                                        <t t-foreach="country_id" t-as="country">
+                                            <option t-esc="country.name"></option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" name="city" class="form-control"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="text" id="phone" name="phone" class="form-control"/>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="experience_info">Experience Info</label>
+                                    <textarea class="form-control" name="experience_info" id="experience_info"
+                                              placeholder="Type here.."></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="expected_salary">Expected Salary</label>
+                                    <input type="text" id="expected_salary" name="expected_salary"
+                                           class="form-control"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="job_position_id">Job Position</label>
+                                    <br></br>
+                                    <select name='job_position_id' class="form-select form-select-lg mb-3">
+                                        <t t-foreach="job_position_id" t-as="job">
+                                            <option t-esc="job.name"></option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <div class="oe_login_buttons">
+                                    <button type="submit" name="csrf_token" t-att-value="request.csrf_token()"
+                                            class="btn btn-primary">Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+         <!--thank you  -->
+        <template id="thank_you_template" name="Thank you">
+            <t t-call="website.layout">
+                <div class='oe_structure'>
+                    <div class="container">
+                        <div class="alert alert-success" role="alert">
+                            Thank You Your registration is succesful!
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>
+
+
+
+
