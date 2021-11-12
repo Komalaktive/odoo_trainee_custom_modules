@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_requirement_gathering,access_requirement_gathering,model_requirement_gathering,base.group_user,1,1,1,1
+access_requirement_gathering_user,access_requirement_gathering_user,model_requirement_gathering,dhrumil_25042000.req_gathering_user,1,0,0,0
+access_requirement_gathering_manager,access_requirement_gathering_manager,model_requirement_gathering,dhrumil_25042000.req_gathering_manager,1,1,1,0
+access_business_type,access_business_type,model_business_type,base.group_user,1,1,1,1

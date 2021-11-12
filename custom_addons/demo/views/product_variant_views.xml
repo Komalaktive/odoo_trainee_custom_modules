@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="demo_form_field_add" model="ir.ui.view">
+        <field name="name">demo.form.field.add</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">             
+                <field name="qty_on_order"/>
+            </xpath>
+        </field>
+    </record>
+
+
+     <record id="demo_tree_field_add" model="ir.ui.view">
+        <field name="name">demo.tree.field.add</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lst_price']" position="before">
+                <field name="qty_on_order"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

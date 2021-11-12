@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_home_menu_sale" name="Portal layout : student menu entries" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'student'" t-attf-class="breadcrumb-item">
+                <a t-if="student_info" t-attf-href="/student">Students</a>
+                <t t-else="">Students</t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="detail_student_data" name="Student Detail Data">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Student Detail</t>
+            </t>
+            <t t-if="stu_data" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-right">Name</th>
+                        <th class="text-center">BirthDate</th>
+                        <th class="text-center">State</th>
+                        <th class="text-right">Roll Number</th>
+                        <th>teacher</th>
+                    </tr>
+                </thead>
+                <t t-foreach="stu_data" t-as="stu">
+                    <tr>
+                        <td class="text-right"><a t-att-href="stu.get_portal_url()"><t t-esc="stu.name"/></a></td>
+                        <td class="text-center"><t t-esc="stu.birthdate"/></td>
+                        <td class="text-center"><t t-esc="stu.state"/></td>
+                        <td class="text-right"><t t-esc="stu.roll_number"/></td>
+                        <td><t t-esc="stu.teacher_id.name"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="student_data_view" name="student Data" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-set="o_portal_fullwidth_alert">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/web#model=%s&amp;id=%s&amp;view_type=form' % (student_info._name, student_info.id)"/>
+                </t>
+            </t>
+            <div class="row mt16 o_portal_sale_sidebar">
+                <!-- Sidebar -->
+                <t t-call="portal.portal_record_sidebar">
+                    <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
+
+                    <t t-set="title">
+                        <h2 class="mb-0"><b t-field="student_info.name"/> </h2>
+                    </t>
+                    <t t-set="entries">
+                        <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                            <li class="list-group-item flex-grow-1">
+                                <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                    <div class="btn-group flex-grow-1 mr-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_download_btn" 
+                                        t-att-href="student_info.get_portal_url(report_type='pdf', 
+                                        download=True)" title="Download"><i 
+                                        class="fa fa-download"/> Download</a>
+                                    </div>
+                                    <div class="btn-group flex-grow-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_print_btn 
+                                        o_portal_invoice_print" 
+                                        t-att-href="student_info.get_portal_url(report_type='pdf')" 
+                                        id="print_invoice_report" title="Print" 
+                                        target="_blank"><i class="fa fa-print"/> Print</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="navspy list-group-item pl-0 flex-grow-1" t-ignore="true" role="complementary">
+                                <ul class="nav flex-column bs-sidenav"></ul>
+                            </li>
+                            <li t-if="student_info.user_id" class="list-group-item flex-grow-1">
+                                <div class="small mb-1"><strong class="text-muted">Salesperson</strong></div>
+                                <div class="row flex-nowrap">
+                                    <div class="col flex-grow-0 pr-2">
+                                        <img class="rounded-circle mr4 float-left o_portal_contact_img" t-if="student_info.user_id.image_1024" t-att-src="image_data_uri(student_info.user_id.image_1024)" alt="Contact"/>
+                                        <img class="rounded-circle mr4 float-left o_portal_contact_img" t-if="not student_info.user_id.image_1024" src="/web/static/src/img/placeholder.png" alt="Contact"/>
+                                    </div>
+                                    <div class="col pl-0" style="min-width: 150px">
+                                        <span t-field="student_info.user_id" t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True}'/>
+                                        <a href="#discussion" class="small"><i class="fa fa-comment"></i> Send message</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </t>        
+                </t>
+                <div class="col-lg-9">
+                    <div id="introduction" t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}">
+                        <h2 class="my-0 mx-0">
+                            <t t-esc="student_info.name"/>
+                        </h2>
+                        <hr class="mt-2"></hr>
+                        <div class="ml-3 mr-0">
+                            <div id="informations">
+                                <div class="row" id="so_date">
+                                    <div>
+                                        <t t-if="student_info">
+                                            <strong>Birth Date:</strong> 
+                                        </t>
+                                        <span t-field="student_info.birthdate" t-options='{"widget": "date"}'/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div>
+                                    <strong t-if="student_info" class="d-block mb-1">Student Leaving Address:</strong>
+                                    <div class="col-lg-6 pl-0 mt-2">  
+                                        <t t-esc="student_info.address"/>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>    
+            </div> 
+        </xpath>   
+    </template>
+
+    <template id="portal_my_detail_inherit" name="Add Fields" inherit_id="portal.portal_my_details">
+        <xpath expr="//t/form/div[@class='row o_portal_details']/div[@class='col-lg-8']/div[@class='row']/div[@class='clearfix']" position="after">
+            <div t-attf-class="form-group #{error.get('field_creator_name') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="field_creator_name">Field Creator Name</label>
+                <input type="text" name="field_creator_name" t-attf-class="form-control #{error.get('field_creator_name') and 'is-invalid' or ''}" t-att-value="field_creator_name or partner.field_creator_name" />
+            </div>
+            <div t-attf-class="form-group #{error.get('field_creator_surname') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="field_creator_surname">Field Creator Surname</label>
+                <input type="text" name="field_creator_surname" t-attf-class="form-control #{error.get('field_creator_surname') and 'is-invalid' or ''}" t-att-value="field_creator_surname or partner.field_creator_surname" />
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

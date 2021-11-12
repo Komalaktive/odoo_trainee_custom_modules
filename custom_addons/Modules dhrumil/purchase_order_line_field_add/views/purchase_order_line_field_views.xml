@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="purchase_order_line_field_id" model="ir.ui.view">
+        <field name="name">purchase.order.line.field.id</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                <field name="made_in"/>            
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Demo data for business.type model -->
+
+    <record id="type_1" model="business.type">
+        <field name="name">Engineering Instruments</field>
+    </record>
+    <record id="type_2" model="business.type">
+        <field name="name">Medical</field>
+    </record>
+    <record id="type_3" model="business.type">
+        <field name="name">Writing Books</field>
+    </record>
+    <record id="type_4" model="business.type">
+        <field name="name">Drawing colors</field>
+    </record>
+    <record id="type_5" model="business.type">
+        <field name="name">Milk</field>
+    </record>
+
+</odoo>        

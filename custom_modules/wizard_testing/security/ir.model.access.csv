@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_wizard_testing,wizard_testing,model_wizard_testing,base.group_user,1,1,1,1
-access_create_wizard,create_wizard,model_create_wizard,,1,1,1,1

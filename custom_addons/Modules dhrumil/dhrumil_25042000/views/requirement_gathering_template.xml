@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="requirement_my_details">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">Requirements</t>
+            <form action="/my/requirement/submit" method="post">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <div class="row o_portal_details">
+                    <div class="col-lg-10">
+                        <div class="col-lg-12">
+                            <div t-if="error_message" class="alert alert-danger" role="alert">
+                                <t t-foreach="error_message" t-as="err"><t t-esc="err"/><br /></t>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label class="col-form-label" for="name">First Name <span style="color: red;">*</span></label>
+                                <input type="text" name="first_name" t-attf-class="form-control" required="true"/>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label class="col-form-label" for="name">Last Name <span style="color: red;">*</span></label>
+                                <input type="text" name="last_name" t-attf-class="form-control" required="true"/>
+                            </div>
+                        </div> 
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label class="col-form-label" for="name">Phone Number <span style="color: red;">*</span></label>
+                                <input type="text" name="phone" t-attf-class="form-control" required="true"/>
+                            </div>
+                        </div> 
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label class="col-form-label" for="name">E-mail</label>
+                                <input type="email" name="email" t-attf-class="form-control"/>
+                            </div>
+                        </div>   
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label class="col-form-label" for="name">Company Name</label>
+                                <input type="text" name="company" t-attf-class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label class="col-form-label" for="business_type">Type of Business <span style="color: red;">*</span></label>
+                                <select name="business_type" class="form-control" id="business_type_id" required="true">
+                                    <t t-foreach="business_type" t-as="bs">
+                                        <option t-att-value="bs.id">
+                                            <t t-esc="bs.name"/>
+                                        </option>
+                                    </t>    
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label class="col-form-label" for="category">Categories <span style="color: red;">*</span></label>
+                                <select name="category" class="form-control" id="categories_id" required="true">
+                                    <t t-foreach="categories" t-as="ct">
+                                        <option t-att-value="ct.id">
+                                            <t t-esc="ct.name"/>
+                                        </option>
+                                    </t>    
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="clearfix">
+                            <button type="submit" class="btn btn-success">
+                                Submit
+                                <span class="fa fa-long-arrow-right" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </t>
+    </template>
+
+</odoo>    

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_inherit" model="ir.ui.view">
+        <field name="name">product.template.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='standard_price_uom']" position="after">
+                <label for="string_generate"/>
+        		<div class="o_row">
+        			<field name="string_generate"/><span> </span>
+        			<button class="oe_highlight" name="random_string_generate"
+                    string="Generate" type="object"/>
+        		</div>  
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

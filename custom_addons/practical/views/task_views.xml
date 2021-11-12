@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="task_tree_view" model="ir.ui.view">
+      <field name="name">task.tree.view</field>
+      <field name="model">hr.referral.application</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="email"/>
+        </tree>
+      </field>
+    </record>
+
+    <record  id="task_form_view" model="ir.ui.view">
+      <field name="name">task.form.view</field>
+      <field name="model">hr.referral.application</field>
+      <field name="arch" type="xml">
+        <form>
+                <header>
+                        <button name="action_approved" string="Approved" class="oe_highlight" 
+                             type="object" states="draft"/>
+                        <button string="Create Application" class="oe_highlight" states="approved"/>
+                        <button id="button_done" name="action_draft" string="Draft" class="border border-primary"  type="object"/>
+                        <button id="button_cancel" name="action_cancel" string="Cancel" states="approved," type="object"/>
+                        <field name="state" widget="statusbar" options="{'clickable':0}" statusbar_visible="draft,approved,cancel"/>
+                </header>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="email"/>
+              <field name="ref_name"/>
+              <field name="degree"/>
+              <field name="dept"/>
+              <field name="ex_salary"/>
+              <field name="summary"/>
+              <field name="joining_date"/>
+            </group>
+          </sheet>
+        
+        </form>
+      </field>
+    </record>
+
+    <record id="task_action" model="ir.actions.act_window">
+        <field name="name">Hr Form</field>
+        <field name="res_model">hr.referral.application</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="hr_referral_application_root_menu" name="Hr"/>
+    <menuitem name="Hr Ref Form" id="hr_ref_app_menu" action="task_action"
+              parent="hr_referral_application_root_menu"/>
+
+    <!-- <menuitem id="task_nav" name="HR Form" parent="task_root" action="task_action"/> -->
+
+</odoo>

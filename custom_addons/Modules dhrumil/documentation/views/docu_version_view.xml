@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="docu_version_tree_view" model="ir.ui.view">
+            <field name="name">docu.version.tree.view</field>
+            <field name="model">docu.version</field>
+            <field name="arch" type="xml">
+                <tree string="Document Version">
+                    <field name="version"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="docu_version_form_view" model="ir.ui.view">
+            <field name="name">docu.version.form.view</field>
+            <field name="model">docu.version</field>
+            <field name="arch" type="xml">
+                <form string="Document Version">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <group>
+                            <group>
+                                <field name="version"/>
+                                <field name="active" widget="boolean_toggle"/>
+                            </group> 
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="docu_version_kanban_view" model="ir.ui.view">
+            <field name="name">docu.version.kanban.view</field>
+            <field name="model">docu.version</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="version"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <field name="version"/>
+                                    <div t-if="record.version.raw_value">Version: <t t-esc="record.version.value"/></div>
+                                </div>
+                            </div>    
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+         <record id="docu_version_search_view" model="ir.ui.view">
+            <field name="name">docu.version.search.view</field>
+            <field name="model">docu.version</field>
+            <field name="arch" type="xml">
+                <search string="Version Analysis">
+                    <field name="version"/>
+                    <separator/>
+                    <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="docu_version_form_action" model="ir.actions.act_window">
+            <field name="name">Version</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">docu.version</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <menuitem id="version_nav" name="Version" parent="documentation_root" action="docu_version_form_action"/>
+    </data>
+</odoo>

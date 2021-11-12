@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="docu_item_tree_view" model="ir.ui.view">
+            <field name="name">docu.item.tree.view</field>
+            <field name="model">docu.item</field>
+            <field name="arch" type="xml">
+                <tree string="Document Item">
+                    <field name="title"/>
+                    <field name="version"/>
+                    <field name="description_short"/>
+                    <field name="description_long"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="docu_item_form_view" model="ir.ui.view">
+            <field name="name">docu.item.form.view</field>
+            <field name="model">docu.item</field>
+            <field name="arch" type="xml">
+                <form string="Document Item">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="title" class="col-6" default_focus="1" placeholder="Title"/>
+                            </h1>
+                        </div>    
+                        <group>
+                            <group>
+                                <field name="active_lang_count" invisible="1"/>
+                                <field name="language" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}"/>
+                                <field name="active" widget="boolean_toggle"/>
+                                <field name="apps"/>
+                                <field name="tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </group> 
+                            <group>   
+                                <field name="version" placeholder="12"/>
+                                <field name="video_url" placeholder="https://www.youtube.com/"/>
+                                <field name="google_document_url" placeholder="https://docs.google.com/"/>
+                            </group>    
+                        </group>
+                        <notebook>
+                            <page string='Description'>
+                                <group>
+                                    <field name="description_short" placeholder="description"/>
+                                    <field name="description_long" placeholder="description"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="docu_item_kanban_view" model="ir.ui.view">
+            <field name="name">docu.item.kanban.view</field>
+            <field name="model">docu.item</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="title"/>
+                    <field name="version"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <field name="title"/>
+                                    <div t-if="record.title.raw_value">Title: <t t-esc="record.title.value"/></div>
+                                    <div t-if="record.version.raw_value">Version: <t t-esc="record.version.value"/></div>
+                                </div>
+                            </div>    
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="docu_item_search_view" model="ir.ui.view">
+            <field name="name">docu.item.search.view</field>
+            <field name="model">docu.item</field>
+            <field name="arch" type="xml">
+                <search string="Item Analysis">
+                    <field name="title"/>
+                    <field name="description_short"/>
+                    <field name="apps"/>
+                    <field name="version"/>
+                    <field name="tags"/>
+                    <separator/>
+                    <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Version" name='version' context="{'group_by':'version'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="docu_item_form_action" model="ir.actions.act_window">
+            <field name="name">Items</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">docu.item</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <menuitem id="documentation_root" name="Documentation"/>
+        <menuitem id="item_nav" name="Items" parent="documentation_root" action="docu_item_form_action"/>
+    </data>
+</odoo>

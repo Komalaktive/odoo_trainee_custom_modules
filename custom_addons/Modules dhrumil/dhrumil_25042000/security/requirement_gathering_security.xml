@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record model="ir.module.category" id="module_category_requirement_gathering">
+        <field name="name">Requirement Gathering</field>
+        <field name="sequence">19</field>
+    </record>
+
+    <record id="module_requirement_gathering" model="ir.module.category">
+        <field name="name">Groups</field>
+        <field name="sequence">21</field>
+        <field name="parent_id" ref="module_category_requirement_gathering"/>
+    </record>
+
+    <record id="req_gathering_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_requirement_gathering"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="req_gathering_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_requirement_gathering"/>
+        <field name="implied_ids" eval="[(4, ref('req_gathering_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+</odoo>    

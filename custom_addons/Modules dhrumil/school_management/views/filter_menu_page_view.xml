@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_home_menu_filter" name="Portal layout : filter menu entries" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'filter'" t-attf-class="breadcrumb-item">
+                <a t-if="teacher_info" t-attf-href="/teacher">Filter</a>
+                <t t-else="">Filter</t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="detail_filter_data" name="filter data">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Student Detail</t>
+            </t>
+            <div class="col-lg-12">
+                <div t-if="negative_error" class="alert alert-danger" role="alert">
+                    <t t-foreach="negative_error" t-as="err"><t t-esc="err"/><br /></t>
+                </div>
+                <div t-if="positive_error" class="alert alert-success" role="alert">
+                    <t t-foreach="positive_error" t-as="err"><t t-esc="err"/><br /></t>
+                </div>
+            </div>
+            
+            <form action="/filter" method="POST">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group text-center">
+                            <label>State : </label>
+                            <center>
+                                <div>
+                                    <select name="state" class="form-control col-6" id="student_stage">
+                                        <option value="all">All</option>
+                                        <t t-foreach="state" t-as="v">
+                                            <option t-att-value="v">
+                                                <t t-esc="v_value"/>
+                                            </option>
+                                        </t>    
+                                    </select>
+                                </div>    
+                            </center>
+                        </div>
+                    </div>
+                    <div class="col">     
+                        <div class="form-group text-center">
+                            <label>Teacher : </label>
+                            <center>
+                                <div>
+                                    <select name="teacher_id" class="form-control col-6" id="teacher_id">
+                                        <t t-foreach="teachers" t-as="teacher">
+                                            <option t-att-value="teacher.id">
+                                                <t t-esc="teacher.name"/>
+                                            </option>
+                                        </t>    
+                                    </select>
+                                </div>    
+                            </center>
+                        </div>
+                    </div> 
+                </div>          
+                <div class="container">
+                    <div class="col-md-12 text-center">
+                        <button type="submit" name="csrf_token" t-att-value="request.csrf_token()" class="btn btn-primary float-right">Submit <span class="fa fa-long-arrow-right"></span></button>
+                    </div>
+                </div>
+            </form>
+            <br></br>
+            <hr></hr>
+            <t t-if="st_data" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-right">Name</th>
+                        <th class="text-center">BirthDate</th>
+                        <th class="text-center">State</th>
+                        <th class="text-right">Roll Number</th>
+                        <th>teacher</th>
+                    </tr>
+                </thead>
+                <t t-foreach="st_data" t-as="stu">
+                    <tr>
+                        <td class="text-right"><a t-att-href="stu.get_portal_url()"><t t-esc="stu.name"/></a></td>
+                        <td class="text-center"><t t-esc="stu.birthdate"/></td>
+                        <td class="text-center"><t t-esc="stu.state"/></td>
+                        <td class="text-right"><t t-esc="stu.roll_number"/></td>
+                        <td><t t-esc="stu.teacher_id.name"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
