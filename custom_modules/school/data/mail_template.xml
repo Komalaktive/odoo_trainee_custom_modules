@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="school_mail_template" model="mail.template">
+            <field name="name">School Receipt: Send by email</field>
+            <field name="model_id" ref="school.model_student_student"/>
+            <field name="email_from">${(object.email.email_formatted) |safe}</field>
+            <field name="email_to">${object.email}</field>
+            <field name="subject">School Report Ref ${object.name}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.name}
+                        <br/>
+                        <br/>
+                        Here is your school Report
+                        <br/>
+                        <br/>
+                        Do not hasitate to contact us if you have any question..
+                    </p>
+                </div>
+            </field>
+            <!--            <field name="report_template" ref="school.school_report_action"/>-->
+            <field name="report_template" ref="school.school_report_action"/>
+            <field name="report_name">School Report${(object.name)}</field>
+        </record>
+    </data>
+</odoo>

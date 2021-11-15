@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record model="ir.module.category" id="module_hr_reffereal">
+        <field name="name">Hrrefferal</field>
+        <field name="description">hrrefferal</field>
+    </record>
+
+    <record id="allow_to_approve_button" model="res.groups">
+        <field name="name">Allow to approve form</field>
+        <field name="category_id" ref="module_hr_reffereal"/>
+    </record>
+
+
+</odoo>

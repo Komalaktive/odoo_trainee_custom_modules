@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="school_tree_view" model="ir.ui.view">
+        <field name="name">school.tree.view</field>
+        <field name="model">school.profile</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="school_form_view" model="ir.ui.view">
+        <field name="name">school.form.view</field>
+        <field name="model">school.profile</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" string="Confirm" class="oe_highlight"
+                            type="object" states="draft"/>
+
+                    <button id="button_done" name="action_done" string="Done" class="border border-primary"
+                            type="object"/>
+                    <button id="button_cancel" name="action_draft" string="Cancel" states="create,received,done"
+                            type="object"/>
+                    <field name="state" widget="statusbar" options="{'clickable':0}"
+                           statusbar_visible="draft,confirm,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <button string="Clear Data" type="object" name="clear_record_data"
+                                    class="btn btn-primary btn-sm "/>
+                            <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                    attrs="{'invisible': [('active', '=', True)]}"/>
+                            <field name="name" string="School Name" groups="base.group_no_one"/>
+                            <field name="email" placeholder="abc@gmail.com" widget="email"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="is_virtual_class"/>
+
+
+                            <field name="school_rank" string="school Rank"
+                                   placeholder="please enter your school Rank here"/>
+                            <field name="result"/>
+                            <field name="address"/>
+                            <!--  <field name="contact_id"/> -->
+                            <field name="school_id" options='{"no_create": True}'/>
+                            <field name="student_gender" widget='radio' options="{'horizontal': true}"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="school_image" widget="image" nolabel="1"
+                                   style="width:95px; height:95px;margin-left:20rem;"/>
+                        </group>
+                        <group>
+                            <field name="establish_date"/>
+
+                            <field name="open_date"/>
+                            <field name="school_type" placeholder="please select type"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="res_partners" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="documents" filename="document_name"/>
+                        <field name="document_name" invisible="1"/>
+                        <field name="school_description"/>
+                    </group>
+                    <notebook>
+                        <page name="name" string="Principle">
+                            <group>
+                                <field name="Principle_msg"/>
+                            </group>
+                        </page>
+                        <page name="name" string="Teacher">
+                            <group>
+                                <field name="Teacher_msg"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="school_search_view" model="ir.ui.view">
+        <field name="model">school.profile</field>
+        <field name="arch" type="xml">
+            <search string="School">
+                <field name="name"/>
+                <field name="school_description"/>
+                <field name="phone"/>
+                <filter string="private" name="private" domain="[('school_type','=', 'private')]"/>
+                <filter string="Public" name="public" domain="[('school_type','=', 'public')]"/>
+                <group expand="1" string="Group By">
+                    <filter name="establish_date" string="establish_date" context="{'group_by':'establish_date'}"
+                            help="Group Students Course Wise"/>
+
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="view_school_profile_kanban" model="ir.ui.view">
+        <field name="name">school.profile.kanban</field>
+        <field name="model">school.profile</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                        <div class="o_kanban_image">
+                            <img t-att-src="kanban_image('school.profile','school_image',record.id.raw_value)"/>
+                        </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong><h1><field name="name"/></h1></strong>
+                                    <strong><field name="result"/></strong>
+                                    <strong><field name="address"/></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="school_action" model="ir.actions.act_window">
+        <field name="name">School Info</field>
+        <field name="res_model">school.profile</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'search_default_public':1}</field>
+    </record>
+
+    <menuitem id="school_root_menu" name="School Management"/>
+    <menuitem id="school_sub_menu" parent="school_root_menu" name="school student" action="school_action"/>
+
+</odoo>

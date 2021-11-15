@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+            <field name="name">res.partner.property.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <header>
+                        <button string="Employee Object"
+                                    type="object" name="hello_list"/>
+
+                        <button string="Employee Action"
+                                    type="action" name="%(hr.open_view_employee_list_my)d"/>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+</odoo>

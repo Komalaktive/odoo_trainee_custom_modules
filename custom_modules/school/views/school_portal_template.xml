@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_home_menu_school" name="Portal layout : school menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li class="list-group-item">
+                <span class="badge" t-esc="quotation_count"/>
+                <a href="/my/records/portal'">Portal Form</a>
+            </li>
+        </xpath>
+    </template>
+</odoo>

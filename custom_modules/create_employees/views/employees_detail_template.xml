@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="create_employees_detail_template">
+            <t t-call="website.layout">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Street</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Experience Info</th>
+                            <th scope="col">Expected Salary</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="document_ids" t-as="document">
+                            <td>
+                                <span t-esc="document.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="document.street"/>
+                            </td>
+                            <td>
+                                <span t-esc="document.city"/>
+                            </td>
+                            <td>
+                                <span t-esc="document.email"/>
+                            </td>
+                            <td>
+                                <span t-esc="document.phone"/>
+                            </td>
+                            <td>
+                                <span t-esc="document.experience_info"/>
+                            </td>
+                            <td>
+                                <span t-esc="document.expected_salary"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

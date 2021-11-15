@@ -1,6 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_patient_info,access_patient_info,model_patient_info,hospital_management.group_patient_user,1,1,1,1
-access_doctor_info,access_doctor_info,model_doctor_info,hospital_management.group_doctor_user,1,1,1,1
-access_patient-doctor,access_patient_doctor,model_patient_info,hospital_management.group_doctor_user,1,1,1,1
-access_doctor_patient,access_doctor_patient,model_doctor_info,hospital_management.group_patient_user,1,1,1,1
-access_email_send_wizard,access_email_send_wizard,model_email_send_wizard,hospital_management.group_doctor_user,1,1,1,1
