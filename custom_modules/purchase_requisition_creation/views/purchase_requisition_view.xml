@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_requisition_tree" model="ir.ui.view">
+        <field name="name">purchase.requisition.tree</field>
+        <field name="model">purchase.requisition</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Requisition">
+                <field name="pr_no"/>
+                <field name="company_id"/>
+                <field name="created_by_id"/>
+                <field name="approved_by_id"/>
+                <field name="created_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_purchase_requisition_form" model="ir.ui.view">
+        <field name="name">purchase.requisition.form</field>
+        <field name="model">purchase.requisition</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Requisition">
+                <header>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                    <button name="approve_pr" string="Approve PR" type="object" states="waiting for approval" class="oe_highlight" copy="False" groups="purchase_requisition_creation.group_purchase_requisition_approval"/>
+                    <button name='%(action_purchase_requisition_wizard)d' string="Reject PR" type="action" states="waiting for approval" class="oe_highlight" groups="purchase_requisition_creation.group_purchase_requisition_approval"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label">Purchase Requisition</span>
+                        <h1>
+                            <field name="pr_no" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="created_by_id"/>
+                            <field name="approved_by_id"/>
+                        </group>
+                        <group>
+                            <field name="created_date" attrs="{'readonly': [('state', 'in', ('approved', 'reject', 'cancel'))]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Purchase Requisition Line Item" name="Purchase Requisition Line Item">
+                            <field name="purchase_req_line_ids">
+                                <tree editable="1">
+                                    <field name="sequence" readonly="1"/>
+                                    <field name="product_id"/>
+                                    <field name="product_qty"/>
+                                    <field name="product_uom_id" string="Product UOM"/>
+                                    <field name="purchase_group_id"/>
+                                    <field name="expected_delivery_date"/>
+                                    <field name="pr_state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_purchase_requisition" model="ir.actions.act_window">
+        <field name="name">Purchase Requisition</field>
+        <field name="res_model">purchase.requisition</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="purchase_requisition_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_purchase_requisition_tree"/>
+        <field name="act_window_id" ref="action_purchase_requisition"/>
+    </record>
+
+    <record id="purchase_requisition_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_purchase_requisition_form"/>
+        <field name="act_window_id" ref="action_purchase_requisition"/>
+    </record>
+
+    <menuitem id="PR_menu_root"
+        name="Requisition"
+        web_icon="purchase_requisition_creation,static/description/icon.png"
+        sequence="50"/>
+
+    <menuitem id="menu_purchase_requisition"
+        name="Purchase Requisition"
+        action="action_purchase_requisition"
+        parent="PR_menu_root"
+        groups='group_purchase_requisition_user,group_purchase_requisition_approval'
+        sequence="2"/>
+
+    <record id="view_purchase_requisition_line_tree" model="ir.ui.view">
+        <field name="name">purchase.requisition.line.tree</field>
+        <field name="model">purchase.requisition.line</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Requisition Line">
+                <field name="sequence" readonly="1"/>
+                <field name="purchase_req_id" string="PR No."/>
+                <field name="product_id"/>
+                <field name="product_qty"/>
+                <field name="product_uom_id" string="Product UOM"/>
+                <field name="purchase_group_id"/>
+                <field name="created_by_id"/>
+                <field name="pr_state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_purchase_requisition_line_form" model="ir.ui.view">
+        <field name="name">purchase.requisition.line.form</field>
+        <field name="model">purchase.requisition.line</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Requisition Line">
+                <header>
+                    <field name="pr_state" widget="statusbar" readonly="0"/>
+                    <button name="approve_pr" string="Approve PR" type="object" attrs="{'invisible': [('pr_state', '!=', 'waiting for approval')]}" class="oe_highlight" groups="purchase_requisition_creation.group_purchase_requisition_approval"/>
+                    <button name="reject_pr" string="Reject PR" type="object" attrs="{'invisible': [('pr_state', '!=', 'waiting for approval')]}" class="oe_highlight" groups="purchase_requisition_creation.group_purchase_requisition_approval"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label">Purchase Requisition</span>
+                        <h1>
+                            <field name="purchase_req_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="product_id" attrs="{'readonly': [('pr_state', 'in', ('approved', 'reject', 'cancel'))]}"/>
+                            <field name="product_qty" attrs="{'readonly': [('pr_state', 'in', ('approved', 'reject', 'cancel'))]}"/>
+                        </group>
+                        <group>
+                            <field name="product_uom_id" attrs="{'readonly': [('pr_state', 'in', ('approved', 'reject', 'cancel'))]}"/>
+                            <field name="expected_delivery_date" attrs="{'readonly': [('pr_state', 'in', ('approved', 'reject', 'cancel'))]}"/>
+                            <field name="created_by_id" readonly="1"/>
+                            <field name="purchase_group_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_purchase_requisition_line" model="ir.actions.act_window">
+        <field name="name">Purchase Requisition Line</field>
+        <field name="res_model">purchase.requisition.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_purchase_requisition_line"
+        name="Purchase Requisition Line"
+        action="action_purchase_requisition_line"
+        parent="PR_menu_root"
+        groups='group_purchase_requisition_approval,group_purchase_requisition_buyer'
+        sequence="2"/>
+</odoo>
