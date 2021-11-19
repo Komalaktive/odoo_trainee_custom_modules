@@ -11,6 +11,9 @@
             <field name="date_order" position="before">
                 <field name="purchase_expected_delivery_date"/>
             </field>
+            <field name="partner_ref" position="after">
+                <field name="purchase_pr_no"/>
+            </field>
         </field>
     </record>
 </odoo>

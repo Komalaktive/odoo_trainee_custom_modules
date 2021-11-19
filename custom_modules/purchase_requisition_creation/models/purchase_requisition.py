@@ -19,14 +19,14 @@ class PurchaseRequisition(models.Model):
         'res.company', 'Company', readonly="1",
         default=lambda self: self.env.user.company_id.id)
     created_by_id = fields.Many2one(
-        'res.users', string='Created by', readonly="1",
+        'res.users', string='Created By', readonly="1",
         default=lambda self: self.env.user.id)
     approved_by_id = fields.Many2one(
         'res.users', string='Approved by', readonly="1", )
     created_date = fields.Date('Date', default=datetime.today())
     purchase_req_line_ids = fields.One2many(
         'purchase.requisition.line', 'purchase_req_id',
-        string='Purchase Requisition Line Items', copy=True)
+        string='Purchase Requisition Line Items', copy=True, readonly=False)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('waiting for approval', 'Waiting for approval'),
@@ -35,9 +35,9 @@ class PurchaseRequisition(models.Model):
         ('closed', 'Closed'),
         ('partially approved', 'Partially Approved'),
         ('partially closed', 'Partially Closed'),
-        ],
+    ],
         string='Status', readonly=True, index=True, copy=False,
-        default='draft', tracking=True, compute='_get_state_val', store=True)
+        default='draft', tracking=True, store=True)
 
     @api.depends('purchase_req_line_ids.pr_state')
     def _get_state_val(self):
@@ -53,13 +53,12 @@ class PurchaseRequisition(models.Model):
                 [line.pr_state == 'reject' for line in
                  self.purchase_req_line_ids]):
             self.state = 'reject'
-        if self.purchase_req_line_ids and 'approved' in self.purchase_req_line_ids.mapped("pr_state") and 'waiting for approval' in self.purchase_req_line_ids.mapped("pr_state"):
-            print("\n\n\n============", self.purchase_req_line_ids.mapped("pr_state"))
+        if self.purchase_req_line_ids and 'approved' in self.purchase_req_line_ids.mapped(
+                "pr_state") and 'waiting for approval' in self.purchase_req_line_ids.mapped("pr_state"):
             self.state = 'partially approved'
-        if self.purchase_req_line_ids and 'closed' in self.purchase_req_line_ids.mapped("pr_state") and 'approved' in self.purchase_req_line_ids.mapped("pr_state"):
-            print("\n\n\n============", self.purchase_req_line_ids.mapped("pr_state"))
+        if self.purchase_req_line_ids and 'closed' in self.purchase_req_line_ids.mapped(
+                "pr_state") and 'approved' in self.purchase_req_line_ids.mapped("pr_state"):
             self.state = 'partially closed'
-
 
     def _reset_sequence(self):
         for rec in self:
@@ -67,8 +66,6 @@ class PurchaseRequisition(models.Model):
             for line in rec.purchase_req_line_ids:
                 line.sequence = 'PRL0000' + str(current_sequence)
                 current_sequence += 1
-
-
 
     @api.model_create_multi
     def create(self, values_list):
@@ -93,6 +90,7 @@ class PurchaseRequisition(models.Model):
     def reject_pr(self):
         for pr_line in self.purchase_req_line_ids:
             pr_line.reject_pr()
+
 
 
 class PurchaseRequisitionLine(models.Model):
@@ -122,9 +120,10 @@ class PurchaseRequisitionLine(models.Model):
         ('reject', 'Rejected'),
         ('closed', 'Closed'),
 
-        ],
+    ],
         string='Status', default='waiting for approval', readonly="0")
-    created_by_id = fields.Many2one('res.users', string='Created by',
+    created_by_id = fields.Many2one('res.users', string='Created by users'
+                                                        '',
                                     default=lambda self: self.env.user.id)
 
     def create_rfq(self):
@@ -137,9 +136,8 @@ class PurchaseRequisitionLine(models.Model):
                     'You can create rfq of the orders which are in "Approved" state.'))
             rec.write({'pr_state': 'closed'})
 
-            pr_ref += rec.purchase_req_id.pr_no + ' , '
-            print("\n\n\n=====pr_ref====", pr_ref)
-            print("\n\n\n=====rec.purchase_req_id.pr_no====", rec.purchase_req_id.pr_no)
+            pr_ref += rec.purchase_req_id.pr_no
+
             seller = rec.product_id._select_seller(
                 quantity=rec.product_qty,
                 uom_id=rec.product_uom_id)
@@ -151,13 +149,24 @@ class PurchaseRequisitionLine(models.Model):
                 'date_planned': datetime.today() + relativedelta(
                     days=seller.delay if seller else 0),
             }))
+
+
         action = self.env.ref('purchase.purchase_rfq').read()[0]
+        last_confirmed_order = self.env['purchase.requisition.line'].search(
+            [('purchase_req_id', '=', rec.purchase_req_id.id)],
+            order='expected_delivery_date desc',
+            limit=1
+        )
+
         form_view = [(self.env.ref('purchase.purchase_order_form').id, 'form')]
         action['views'] = form_view
         context = {
             'default_PR_ref': pr_ref,
             'default_order_line': line_vals,
-            'default_purchase_expected_delivery_date': rec.expected_delivery_date,
+            'default_purchase_expected_delivery_date': last_confirmed_order.expected_delivery_date,
+            'default_origin': pr_ref,
+            'default_purchase_pr_no': rec.sequence,
+
         }
         action['context'] = context
         return action
@@ -198,4 +207,6 @@ class PurchaseRequisitionLine(models.Model):
         if self.expected_delivery_date:
             if self.expected_delivery_date < date.today():
                 raise UserError('Expected Delivery date should not be before the current date')
+
+
 
