@@ -4,7 +4,7 @@
         <!-- Sequences for purchase.requisition -->
         <record id="seq_purchase_requisition" model="ir.sequence">
             <field name="name">Purchase Requisition</field>
-            <field name="code">purchase.requisition</field>
+            <field name="code">purchase.requisition.allocation</field>
             <field name="prefix">PR</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
@@ -12,15 +12,15 @@
         <!-- Sequences for purchase.requisition.line -->
         <record id="seq_purchase_requisition_line" model="ir.sequence">
             <field name="name">Purchase Requisition Line</field>
-            <field name="code">purchase.requisition.line</field>
+            <field name="code">purchase.requisition.allocation.line</field>
             <field name="prefix">PR</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
         <record id="model_purchase_requisition_line_create_rfq" model="ir.actions.server">
             <field name="name">Create RFQ</field>
-            <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_line"/>
-            <field name="binding_model_id" ref="purchase_requisition_creation.model_purchase_requisition_line"/>
+            <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation_line"/>
+            <field name="binding_model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation_line"/>
             <field name="binding_view_types">list,form</field>
             <field name="state">code</field>
             <field name="groups_id" eval="[(6, 0, [ref('purchase_requisition_creation.group_purchase_requisition_buyer'), ref('base.group_system')])]"/>
@@ -28,8 +28,8 @@
         </record>
         <record id="model_purchase_requisition_line_approval" model="ir.actions.server">
             <field name="name">Approve</field>
-            <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_line"/>
-            <field name="binding_model_id" ref="purchase_requisition_creation.model_purchase_requisition_line"/>
+            <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation_line"/>
+            <field name="binding_model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation_line"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
             <field name="groups_id" eval="[(6, 0, [ref('purchase_requisition_creation.group_purchase_requisition_approval'), ref('base.group_system')])]"/>
@@ -37,8 +37,8 @@
         </record>
         <record id="model_purchase_requisition_line_reject" model="ir.actions.server">
             <field name="name">Reject</field>
-            <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_line"/>
-            <field name="binding_model_id" ref="purchase_requisition_creation.model_purchase_requisition_line"/>
+            <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation_line"/>
+            <field name="binding_model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation_line"/>
             <field name="binding_view_types">list</field>
             <field name="state">code</field>
             <field name="groups_id" eval="[(6, 0, [ref('purchase_requisition_creation.group_purchase_requisition_approval'), ref('base.group_system')])]"/>

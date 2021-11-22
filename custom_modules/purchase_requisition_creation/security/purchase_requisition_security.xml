@@ -29,7 +29,7 @@
 
     <record id="purchase_requisition_admin_rule" model="ir.rule">
         <field name="name">Purchase Requisition Administration</field>
-        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition"/>
+        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation"/>
         <field name="groups" eval="[(4, ref('base.group_system'))]"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="True"/>
@@ -40,7 +40,7 @@
 
     <record id="purchase_requisition_pr_creation_user_rule" model="ir.rule">
         <field name="name">Purchase Requisition PR Creation</field>
-        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition"/>
+        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation"/>
         <field name="domain_force">[('created_by_id', '=', user.id), ('state', '=', ('waiting for approval'))]</field>
         <field name="groups" eval="[(4, ref('purchase_requisition_creation.group_purchase_requisition_user'))]"/>
         <field name="perm_unlink" eval="1"/>
@@ -51,7 +51,7 @@
 
     <record id="purchase_requisition_pr_approval_rule" model="ir.rule">
         <field name="name">Purchase Requisition PR Approval</field>
-        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition"/>
+        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation"/>
         <field name="domain_force">[('state', 'in', ('waiting for approval', 'approved', 'reject'))]</field>
         <field name="groups" eval="[(4, ref('purchase_requisition_creation.group_purchase_requisition_approval'))]"/>
         <field name="perm_unlink" eval="0"/>
@@ -62,7 +62,7 @@
 
     <record id="purchase_requisition_pr_approval_line_rule" model="ir.rule">
         <field name="name">Purchase Requisition PR Line Approval</field>
-        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_line"/>
+        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation_line"/>
         <field name="domain_force">[('pr_state', 'in', ('waiting for approval', 'approved', 'reject'))]</field>
         <field name="groups" eval="[(4, ref('purchase_requisition_creation.group_purchase_requisition_approval'))]"/>
         <field name="perm_unlink" eval="0"/>
@@ -73,7 +73,7 @@
 
     <record id="purchase_requisition_line_admin_rule" model="ir.rule">
         <field name="name">Purchase Requisition Line Administration</field>
-        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_line"/>
+        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation_line"/>
         <field name="groups" eval="[(4, ref('base.group_system'))]"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="True"/>
@@ -84,7 +84,7 @@
 
     <record id="purchase_requisition_line_buyer_rule" model="ir.rule">
         <field name="name">Purchase Requisition Line Buyer</field>
-        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_line"/>
+        <field name="model_id" ref="purchase_requisition_creation.model_purchase_requisition_allocation_line"/>
         <field name="domain_force">[('purchase_group_id', '=', user.id), ('pr_state', 'in', ('approved', 'closed'))]</field>
         <field name="groups" eval="[(4, ref('purchase_requisition_creation.group_purchase_requisition_buyer'))]"/>
         <field name="perm_unlink" eval="0"/>
