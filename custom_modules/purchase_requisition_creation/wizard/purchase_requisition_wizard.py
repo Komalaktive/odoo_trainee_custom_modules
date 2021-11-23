@@ -1,7 +1,7 @@
 from odoo import api, fields, models
 
 
-class PurchaseRequisitionWizard(models.TransientModel):
+class PurchaseRequisitionAllocationWizard(models.TransientModel):
     _name = "purchase.requisition.wizard"
     _description = "Purchase Requisition wizard"
 

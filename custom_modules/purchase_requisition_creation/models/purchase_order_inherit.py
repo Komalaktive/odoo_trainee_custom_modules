@@ -5,5 +5,9 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     PR_ref = fields.Char(string="PR Reference", readonly="1")
-    purchase_expected_delivery_date = fields.Datetime(string="Expected Delivery Date")
+
+
+class PurchaseOrderLine(models.Model):
+    _inherit = "purchase.order.line"
+
     purchase_pr_no = fields.Char(string="PR Line No")

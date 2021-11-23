@@ -6,7 +6,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
-class PurchaseRequisition(models.Model):
+class PurchaseRequisitionAllocation(models.Model):
     _name = "purchase.requisition.allocation"
     _inherit = "mail.thread"
     _description = "Purchase Requisition"
@@ -55,32 +55,38 @@ class PurchaseRequisition(models.Model):
         compute="_get_state_val",
     )
 
-    @api.depends('purchase_req_line_ids.pr_state')
+    @api.depends("purchase_req_line_ids.pr_state")
     def _get_state_val(self):
         if self.purchase_req_line_ids and all(
-                [line.pr_state == 'closed' for line in
-                 self.purchase_req_line_ids]):
-            self.state = 'closed'
+            [line.pr_state == "closed" for line in self.purchase_req_line_ids]
+        ):
+            self.state = "closed"
         if self.purchase_req_line_ids and all(
-                [line.pr_state == 'approved' for line in
-                 self.purchase_req_line_ids]):
-            self.state = 'approved'
+            [line.pr_state == "approved" for line in self.purchase_req_line_ids]
+        ):
+            self.state = "approved"
         if self.purchase_req_line_ids and all(
-                [line.pr_state == 'reject' for line in
-                 self.purchase_req_line_ids]):
-            self.state = 'reject'
-        if self.purchase_req_line_ids and 'approved' in self.purchase_req_line_ids.mapped(
-                "pr_state") and 'waiting for approval' in self.purchase_req_line_ids.mapped("pr_state"):
-            self.state = 'partially approved'
-        if self.purchase_req_line_ids and 'approved' in self.purchase_req_line_ids.mapped(
-                "pr_state") and 'closed' in self.purchase_req_line_ids.mapped("pr_state"):
-            self.state = 'partially closed'
+            [line.pr_state == "reject" for line in self.purchase_req_line_ids]
+        ):
+            self.state = "reject"
+        if (
+            self.purchase_req_line_ids
+            and "approved" in self.purchase_req_line_ids.mapped("pr_state")
+            and "waiting for approval" in self.purchase_req_line_ids.mapped("pr_state")
+        ):
+            self.state = "partially approved"
+        if (
+            self.purchase_req_line_ids
+            and "approved" in self.purchase_req_line_ids.mapped("pr_state")
+            and "closed" in self.purchase_req_line_ids.mapped("pr_state")
+        ):
+            self.state = "partially closed"
 
     def _reset_sequence(self):
         for rec in self:
             current_sequence = 1
             for line in rec.purchase_req_line_ids:
-                line.sequence = 'PRL0000' + str(current_sequence)
+                line.sequence = "PRL0000" + str(current_sequence)
                 current_sequence += 1
 
     @api.model_create_multi
@@ -94,12 +100,12 @@ class PurchaseRequisition(models.Model):
                     or "/"
                 )
                 vals["state"] = "waiting for approval"
-        res = super(PurchaseRequisition, self).create(values_list)
+        res = super(PurchaseRequisitionAllocation, self).create(values_list)
         res._reset_sequence()
         return res
 
     def write(self, vals):
-        res = super(PurchaseRequisition, self).write(vals)
+        res = super(PurchaseRequisitionAllocation, self).write(vals)
         self._reset_sequence()
         return res
 
@@ -112,7 +118,7 @@ class PurchaseRequisition(models.Model):
             pr_line.reject_pr()
 
 
-class PurchaseRequisitionLine(models.Model):
+class PurchaseRequisitionAllocationLine(models.Model):
     _name = "purchase.requisition.allocation.line"
     _inherit = "mail.thread"
     _description = "Purchase Requisition Line"
@@ -157,16 +163,15 @@ class PurchaseRequisitionLine(models.Model):
     def create_rfq(self):
         line_vals = []
         pr_ref = ""
-
         for rec in self:
             if rec.pr_state != "approved":
                 raise UserError(
                     _('You can create rfq of the orders which are in "Approved" state.')
                 )
             rec.write({"pr_state": "closed"})
-
-            pr_ref += rec.purchase_req_id.pr_no
-
+            pr_ref += (
+                rec.purchase_req_id.pr_no if rec.purchase_req_id.pr_no else "" + " , "
+            )
             seller = rec.product_id._select_seller(
                 quantity=rec.product_qty, uom_id=rec.product_uom_id
             )
@@ -179,29 +184,19 @@ class PurchaseRequisitionLine(models.Model):
                         "name": rec.product_id.name,
                         "product_qty": rec.product_qty,
                         "product_uom": rec.product_uom_id.id,
-                        "date_planned": datetime.today()
-                        + relativedelta(days=seller.delay if seller else 0),
+                        "date_planned": rec.expected_delivery_date,
+                        "purchase_pr_no": rec.sequence,
                     },
                 )
             )
 
         action = self.env.ref("purchase.purchase_rfq").read()[0]
-
-        # maximum date in expected delievery date
-        last_confirmed_date = self.env["purchase.requisition.allocation.line"].search(
-            [("purchase_req_id", "=", rec.purchase_req_id.id)],
-            order="expected_delivery_date desc",
-            limit=1,
-        )
-
         form_view = [(self.env.ref("purchase.purchase_order_form").id, "form")]
         action["views"] = form_view
         context = {
             "default_PR_ref": pr_ref,
             "default_order_line": line_vals,
-            "default_purchase_expected_delivery_date": last_confirmed_date.expected_delivery_date,
             "default_origin": pr_ref,
-            "default_purchase_pr_no": rec.sequence,
         }
         action["context"] = context
         return action
@@ -226,17 +221,6 @@ class PurchaseRequisitionLine(models.Model):
                     )
                 )
             pr.write({"pr_state": "reject"})
-
-    def partially_approved(self):
-        for pr in self:
-            if pr.pr_state != "Partially Approved":
-                raise UserError(
-                    _(
-                        'You can approve the orders which are in "partially approved" state.'
-                    )
-                )
-            pr.purchase_req_id.approved_by_id = pr.env.user.id
-            pr.write({"pr_state": "approved"})
 
     @api.onchange("product_id")
     def onchange_product_id(self):

@@ -5,15 +5,12 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
-            <field name="date_order" position="after">
+            <field name="partner_ref" position="after">
                 <field name="PR_ref"/>
             </field>
-            <field name="date_order" position="before">
-                <field name="purchase_expected_delivery_date"/>
-            </field>
-            <field name="partner_ref" position="after">
+            <xpath expr="//notebook//field[@name='product_qty']" position="before">
                 <field name="purchase_pr_no"/>
-            </field>
+            </xpath>
         </field>
     </record>
 </odoo>
