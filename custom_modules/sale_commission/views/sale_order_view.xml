@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Sale order fprm -->
+    <record id="view_sale_order_new_field_customization_form" model="ir.ui.view">
+        <field name="name">sale.order.new.field.customization.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="Commission" string="Commission">
+                    <field name="commission_ids">
+                        <tree  editable="bottom">
+                            <field name="order_id" invisible="1"/>
+                            <field name="user_id"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="commission_amount" widget="monetary"/>
+                            <field name="move_id"/>
+                            <field name="payment_id"/>
+                            <field name="commission_type" invisible="1"/>
+                        </tree>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <field name="order_id" invisible="1"/>
+                                    <field name="user_id"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="commission_amount" widget="monetary"/>
+                                    <field name="commission_type" invisible="1"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="after">
+                <button name="action_sales_commission" string="Commission" type="object" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Commission action server-->
+    <record id="model_sale_order_action_commission" model="ir.actions.server">
+        <field name="name">Commission</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_sales_commission()</field>
+    </record>
+
+</odoo>

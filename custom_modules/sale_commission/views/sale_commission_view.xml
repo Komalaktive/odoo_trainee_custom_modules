@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- commission form view -->
+    <record id="view_commission_form" model="ir.ui.view">
+        <field name="name">view.commission.form</field>
+        <field name="model">sale.commission</field>
+        <field name="arch" type="xml">
+            <form string="Commission">
+                <header>
+                    <button string="Create Payment" type="object" name="open_commission_payment" class="oe_highlight" attrs="{'invisible': [('state', '=', 'paid')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,paid"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="user_id"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="commission_amount" widget="monetary"/>
+                        <field name="order_id"/>
+                        <field name="move_id"/>
+                        <field name="payment_id"/>
+                        <field name="commission_type" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- commission tree view -->
+    <record id="view_commission_tree" model="ir.ui.view">
+        <field name="name">view.commission.tree</field>
+        <field name="model">sale.commission</field>
+        <field name="arch" type="xml">
+            <tree string="Commission">
+                <field name="user_id"/>
+                <field name="order_id"/>
+                <field name="move_id"/>
+                <field name="payment_id"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="commission_amount" widget="monetary"/>
+                <field name="state"/>
+                <field name="commission_type" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Commission search view-->
+    <record id="view_commission_search" model="ir.ui.view">
+        <field name="model">sale.commission</field>
+        <field name="arch" type="xml">
+            <search string="Search Commission">
+                <field name="user_id"/>
+                <filter name="user_filter" string="User" context="{'group_by':'user_id'}" />
+            </search>
+        </field>
+    </record>
+
+    <!-- Commission action-->
+    <record id="action_commission" model="ir.actions.act_window">
+        <field name="name">Sales Commission</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.commission</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="sale_commission.view_commission_search"/>
+        <field name="context">{'search_default_user_filter': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Sale Commission!</p>
+        </field>
+    </record>
+
+    <!-- Commission Menu -->
+    <menuitem id="menu_sale_commission" parent="sale.sale_menu_root" name="Commission" />
+
+    <menuitem id="menu_sale_commission_commission" parent="menu_sale_commission" name="Commission" action="action_commission"/>
+
+
+
+
+</odoo>

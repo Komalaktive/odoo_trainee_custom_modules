@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="wells_sales_html_report">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <t t-set="sale_order_datas" t-value="docs.get_sale_order()"/>
+                    <div class="report_html">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th>SA. No.</th>
+                                <th>SA. Date</th>
+                                <th>Attach SA Image</th>
+                                <th>Lead source</th>
+                                <th>Refer by</th>
+                                <th> Client Company</th>
+                                <th>Client Name 1</th>
+                                <th>Client HP 1</th>
+                                <th>Address</th>
+                                <th>Postal Code</th>
+                                <th>Main Products</th>
+                                <th>Filter Type</th>
+                                <th>Email</th>
+                                <th>System Warranty</th>
+                                <th>Status</th>
+                                <th>Total Amt $</th>
+                                <th>Deposit Amt $</th>
+                                <th>Deposit Date</th>
+                                <th>Deposit Mode</th>
+                                <th>Chq</th>
+                                <th>Checked by</th>
+                                <th>Payment</th>
+                                <th>Date</th>
+                                <th>Mode</th>
+                                <th>chq</th>
+                                <th>Checked by</th>
+                                <th>Outstanding</th>
+                                <th>Lucky Draw</th>
+                                <th>Sales Remarks</th>
+                                <th>Installation Date 1</th>
+                                <th>Installation Time 1</th>
+                                <th>Status</th>
+                                <th>Installer Name</th>
+                                <!-- <th>Amount</th>
+                                <th>Date</th>
+                                <th>Mode</th>
+                                <th>Remarks</th> -->
+                                <th>Installation Date 2</th>
+                                <th>Installation Time 2</th>
+                                <th>Installation Remarks</th>
+                                <th>Sales By</th>
+                                <th>Share Com $</th>
+                                <th>Date</th>
+                                <th>Mode</th>
+                                <th>Remarks</th>
+                                <!-- <th>Share By</th>
+                                <th>Com $</th>
+                                <th>Date</th>
+                                <th>Mode</th>
+                                <th>Remarks</th>
+                                <th>Share By</th>
+                                <th>Share Com $</th>
+                                <th>Date</th>
+                                <th>Mode</th>
+                                <th>Remarks</th>
+                                <th>Overridding</th>
+                                <th>Amt</th>
+                                <th>Date</th>
+                                <th>Mode</th>
+                                <th>Remark</th> -->
+                                <th>Data Collection</th>
+                                <th>Spare</th>
+                                <th>Installation Time 2</th>
+                                <th>Sales Amount W GST</th>
+                                <th>GST</th>
+                                <th>Before GST</th>
+                                <th>Serial No</th>
+                                <th>Date Production</th>
+                                <th>Service Record Link</th>
+                                <th>Service Due Date</th>
+                                <th>Date Done</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                                <th>Service Due Date</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                                <th>Service Due Date</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </thead>
+                            <tbody>
+                                <t  t-foreach="sale_order_datas" t-as="sale_order_data">
+                                <t  t-foreach="sale_order_datas[sale_order_data]" t-as="sale_recs">
+                                <tr t-foreach="sale_recs.order_line.filtered(lambda p :p.product_id.id != int(request.env['ir.config_parameter'].sudo().get_param('sale.default_deposit_product_id')))" t-as="line_rec">
+                                    <td><span t-esc="line_rec.order_id.name"/></td>
+                                    <td><span t-esc="line_rec.order_id.date_order.date()"/></td>
+                                    <td></td>
+                                    <td><span t-esc="line_rec.order_id.source_id.name"/></td>
+                                    <td></td>
+                                    <td><span t-esc="line_rec.order_id.partner_id.parent_id.name"/></td>
+                                    <td><span t-esc="line_rec.order_id.partner_id.name"/></td>
+                                    <td><span t-esc="line_rec.order_id.partner_id.mobile"/></td>
+                                    <td>
+                                        <span t-esc="line_rec.order_id.partner_id.street"/>
+                                        <span t-esc="line_rec.order_id.partner_id.city"/>
+                                        <span t-esc="line_rec.order_id.partner_id.country_id.name"/>
+                                    </td>
+                                    <td><span t-esc="line_rec.order_id.partner_id.zip"/></td>
+                                    <td><span t-esc="line_rec.product_id.name"/></td>
+                                    <td></td>
+                                    <td><span t-esc="line_rec.order_id.partner_id.email"/></td>
+                                    <td><span t-esc="line_rec.warranty_uom_value"/></td>
+                                    <td><span t-field="line_rec.order_id.deposit_id"/></td>
+                                    <td><span t-esc="line_rec.order_id.amount_total"/></td>
+                                    <t t-set="deposit_move_rec" t-value="line_rec.order_id.invoice_ids.filtered(lambda l :l.invoice_line_ids.product_id.id == int(request.env['ir.config_parameter'].sudo().get_param('sale.default_deposit_product_id')))"/>
+                                                                        
+                                    <td><span t-esc="deposit_move_rec.amount_total"/></td>
+                                    <td><span t-esc="deposit_move_rec.invoice_date"/></td>
+                                    
+                                    <t t-set="payment_rec" t-value="request.env['account.payment'].search([('ref', '=',deposit_move_rec.name )])"/>
+                                    <td><span t-esc="payment_rec.journal_id.name"/></td>
+                                    <td><span t-esc="payment_rec.check_number"/></td>
+                                    <td><span t-esc="line_rec.order_id.user_id.name"/></td>
+                                    <td><span t-esc="line_rec.order_id.amount_total"/></td>
+
+                                    <t t-set="invoice_rec" t-value="line_rec.order_id.invoice_ids.filtered(lambda l :l.invoice_line_ids.product_id.id != int(request.env['ir.config_parameter'].sudo().get_param('sale.default_deposit_product_id')))"/>
+                                    <t t-set="payment_rec" t-value="request.env['account.payment'].search([('ref', '=',invoice_rec.name )])"/>
+
+
+                                    <td>
+                                        <t t-if="payment_rec">
+                                        <span t-esc="payment_rec[0].date"/>
+                                    </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="payment_rec">
+                                        <span t-esc="payment_rec[0].journal_id.name"/>
+                                    </t>
+                                    </td>
+                                    <td><span t-esc="line_rec.order_id.cheque_details_ids.mapped('cheque_number')"/></td>
+                                    <td><span t-esc="line_rec.order_id.user_id.name"/></td> 
+                                    <td><span t-esc="sum(line_rec.order_id.invoice_ids.mapped('amount_residual'))"/></td>
+                                    <td><span t-esc="line_rec.order_id.partner_id.lucky_draw"/></td>
+                                    <td><span t-esc="line_rec.order_id.note"/></td>
+                                    <td><span t-esc="line_rec.order_id.installation_date_1"/></td>
+                                    <td><span t-esc="line_rec.order_id.installation_time_1"/></td>
+                                    <td><span t-field="line_rec.order_id.picking_ids[0].state"/></td>
+                                    <td><span t-esc="line_rec.order_id.installer_employee_id.name"/></td>
+                                    <!-- <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td> -->
+                                    <td><span t-esc="line_rec.order_id.installation_date_2"/></td>
+                                    <td><span t-esc="line_rec.order_id.installation_time_2"/></td>
+                                    <td><span t-esc="line_rec.order_id.installation_remarks"/></td>
+                                    <td><span t-esc="line_rec.order_id.user_id.name"/></td>
+                                    <td><span t-esc="sum(line_rec.order_id.cheque_details_ids.mapped('cheque_amount'))"/></td>
+
+                                    <t t-set="commission_recs" t-value="request.env['sale.commission'].search([('order_id', '=', line_rec.order_id.id)])"/>
+
+
+                                    <td><span t-esc="commission_recs.payment_id[0].date"/></td>
+                                    <td><span t-esc="line_rec.order_id.invoice_ids.payment_id[0].journal_id.name"/></td>
+                                    <td></td>
+                                    <!-- <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td> -->
+                                    <td><span t-esc="line_rec.order_id.partner_id.mapped('collection_pick_ids')[0].name"/></td>
+                                    <t t-set="warranty_rec" t-value="request.env['warranty.management'].search([('order_line_id', '=',line_rec.id )])"/>
+                                    <td><span t-esc="warranty_rec.available_qty"/></td>
+                                    <td><span t-esc="line_rec.order_id.installation_time_2"/></td>
+                                    <td><span t-esc="line_rec.order_id.amount_total"/></td>
+                                    <td><span t-esc="line_rec.order_id.amount_tax"/></td>
+                                    <td><span t-esc="line_rec.order_id.amount_untaxed"/></td>
+                                    <td><span t-esc="warranty_rec.lot_ids.mapped('name')"/></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </t>
+
+                        </t>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+   
+    <record id="action_wells_sales_html_report" model="ir.actions.report">
+        <field name="name">wells.sales.report.action</field>
+        <field name="model">wells.sales.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">sale_commission.wells_sales_html_report</field>
+        <field name="report_file">sale_commission.wells_sales_html_report</field>
+    </record>
+</odoo>
